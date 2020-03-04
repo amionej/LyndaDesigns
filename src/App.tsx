@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './api/ApolloClient';
-import Homepage from './components/HomePage';
+import Homepage from './components/HomePage/HomePage';
 import './App.css';
 
 const history = createBrowserHistory();
