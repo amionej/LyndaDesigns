@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const restLink = new RestLink({
-  // uri: endpoint,
+  uri: 'temporary.test.doesntwork',
   credentials: 'include',
   responseTransformer: async response => response.json().then(({ data }) => data),
 });
