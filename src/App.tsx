@@ -17,8 +17,8 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={Homepage} />
           </Switch>
-          {/* <Fotter /> */}
         </main>
+        {/* <Footer /> */}
       </Router>
     </ApolloProvider>
   );
