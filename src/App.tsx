@@ -16,7 +16,6 @@ import Homepage from './components/HomePage';
 import Catalog from './components/Catalog';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
-import LandingPage from './components/LandingPage';
 
 const history = createBrowserHistory();
 
@@ -122,7 +121,7 @@ const App = () => {
 
         <main className={classes.content}>
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/" component={Homepage} />
             <Route exact path="/catalog" component={Catalog} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/cart" component={Cart} />
