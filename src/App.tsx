@@ -131,7 +131,7 @@ const App = () => {
 
         {/* <Footer /> */}
 
-        <footer className={classes.footer}>
+        <footer className={classes.footer} style={{textAlign:"center"}}>
           <Container maxWidth="sm">
             <Typography variant="body1">Footer.</Typography>
             <Copyright />
