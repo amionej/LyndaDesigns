@@ -7,15 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
+  },
+  images: {
+    textAlign: 'center',
   },
 }));
 
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
             </div>
           </Container>
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div className={classes.images}>
           <img
             src="https://www.mujerde10.com/wp-content/uploads/2016/01/cartas-1024x465.jpg"
             alt="imagen de pagina de inicio"
