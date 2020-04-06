@@ -16,6 +16,8 @@ const useStyles = makeStyles(theme => ({
   },
   images: {
     textAlign: 'center',
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
   },
 }));
 
