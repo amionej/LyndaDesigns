@@ -21,6 +21,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const handleClick = (link: string) => {
+    window.location.href = link;
+};
+
 const HomePage: React.FC = () => {
   const classes = useStyles();
 
@@ -40,12 +44,14 @@ const HomePage: React.FC = () => {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
+                   <Button
+                    onClick={() => handleClick('login')} variant="contained" color="primary">
                     Iniciar Sesion
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="primary">
+                <Button
+                    onClick={() => handleClick('signup')} variant="outlined" color="primary">
                     Registrarse
                   </Button>
                 </Grid>

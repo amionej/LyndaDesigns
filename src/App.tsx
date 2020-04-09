@@ -118,7 +118,9 @@ const App = () => {
                   </Grid>
                 </Grid>
 
-                <Button color="inherit">Login</Button>
+              <Button color="inherit"
+              onClick={() => handleClick('login')}
+              > Login</Button>
               </Toolbar>
             </AppBar>
           </div>

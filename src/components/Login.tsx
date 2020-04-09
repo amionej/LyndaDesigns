@@ -66,7 +66,7 @@ const Login: React.FC = () => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            Sign in
+            Inicio de Sesion
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Correo electronico"
               name="email"
               autoComplete="email"
               autoFocus
@@ -89,7 +89,7 @@ const Login: React.FC = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -103,12 +103,12 @@ const Login: React.FC = () => {
               // type="submit"
               onClick={()=>handleSignIn(emailValue, passwordValue)}
             >
-              Sign In
+              Iniciar Sesion
             </Button>
             <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">
-                  Don&apos;t have an account? Sign Up
+                  ¿No tienes cuenta? Registrate
                 </Link>
               </Grid>
             </Grid>
