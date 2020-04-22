@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Modal from 'react-modal';
+import './Catalog.css';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -30,6 +32,14 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     flexGrow: 1,
   },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }));
 
 const cards = [1, 2, 3];
@@ -48,7 +58,19 @@ const descriptions = [
 
 const Catalog: React.FC = () => {
   const classes = useStyles();
-
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [image, setImage] = React.useState();
+  const [description, setDescription] = React.useState('');
+  const [number, setNumber] = React.useState('');
+  function openModal(picture, desc, num) {
+    setImage(picture);
+    setDescription(desc);
+    setNumber(num);
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <>
       <CssBaseline />
@@ -72,7 +94,7 @@ const Catalog: React.FC = () => {
                   <CardMedia
                     className={classes.cardMedia}
                     image={pictures[card]}
-                    title="Image title"
+                    title={descriptions[card]}
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -81,7 +103,11 @@ const Catalog: React.FC = () => {
                     <Typography>{descriptions[card]}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => openModal(pictures[card], descriptions[card], card)}
+                    >
                       Ver
                     </Button>
                     <Button size="small" color="primary">
@@ -93,6 +119,50 @@ const Catalog: React.FC = () => {
             ))}
           </Grid>
         </Container>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          closeTimeoutMS={200}
+          style={{
+            overlay: {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(255, 255, 255, 0.75)',
+            },
+            content: {
+              position: 'absolute',
+              top: '10%',
+              left: '10%',
+              right: '10%',
+              bottom: '10%',
+              border: '1px solid #ccc',
+              background: '#fff',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px',
+            },
+          }}
+          contentLabel="Example Modal"
+        >
+          <Card className={classes.card}>
+            <CardMedia className={classes.cardMedia} image={image} title={description} />
+            <CardContent className={classes.cardContent} style={{ textAlign: 'center' }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                Modelo #{number}
+              </Typography>
+              <Typography>{description}</Typography>
+              <Button size="large" color="primary">
+                Agregar a carrito
+              </Button>
+            </CardContent>
+          </Card>
+        </Modal>
       </main>
     </>
   );
