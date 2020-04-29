@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
     ContactPage: {
@@ -48,9 +49,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function handleSendMail(fName, lName, email, message) {
+    console.log(fName, lName, email, message);
+    Swal.fire(`¡Gracias, ${fName} ${lName}!`, "Tu mensaje ha sido enviado.", 'success');
+  }
+
 const Contact: React.FC = () => {
     const classes = useStyles();
-
+    const [firstNameValue, setFirstNameValue] = useState('');
+    const [lastNameValue, setLastNameValue] = useState('');
+    const [emailValue, setEmailValue] = useState('');
+    const [messageValue, setmessageValue] = useState('');
     return (
         <Container className={classes.ContactPage}>
             <CssBaseline />
@@ -83,6 +92,7 @@ const Contact: React.FC = () => {
                                 id="firstName"
                                 label="Nombre"
                                 autoFocus
+                                onChange={e => setFirstNameValue(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -94,6 +104,7 @@ const Contact: React.FC = () => {
                                 label="Apellido"
                                 name="lastName"
                                 autoComplete="lname"
+                                onChange={e => setLastNameValue(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -105,6 +116,7 @@ const Contact: React.FC = () => {
                                 label="Correo electronico"
                                 name="email"
                                 autoComplete="email"
+                                onChange={e => setEmailValue(e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -117,13 +129,14 @@ const Contact: React.FC = () => {
                         label="Escriba aqui su mensaje..."
                         name="messaage"
                         autoComplete="Mensaje"
+                        onChange={e => setmessageValue(e.target.value)}
                         />
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={() => handleSendMail(firstNameValue, lastNameValue, emailValue, messageValue)}
                     >
                         Enviar
                     </Button>

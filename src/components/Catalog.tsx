@@ -134,15 +134,13 @@ const Catalog: React.FC = () => {
               backgroundColor: 'rgba(255, 255, 255, 0.75)',
             },
             content: {
-              position: 'absolute',
+              position: 'fixed',
               top: '10%',
               left: '10%',
               right: '10%',
-              bottom: '10%',
+              bottom: 'auto',
               border: '1px solid #ccc',
               background: '#fff',
-              overflow: 'auto',
-              WebkitOverflowScrolling: 'touch',
               borderRadius: '4px',
               outline: 'none',
               padding: '20px',
@@ -150,18 +148,18 @@ const Catalog: React.FC = () => {
           }}
           contentLabel="Example Modal"
         >
-          <Card className={classes.card}>
-            <CardMedia className={classes.cardMedia} image={image} title={description} />
-            <CardContent className={classes.cardContent} style={{ textAlign: 'center' }}>
-              <Typography gutterBottom variant="h5" component="h2">
-                Modelo #{number}
-              </Typography>
-              <Typography>{description}</Typography>
-              <Button size="large" color="primary">
-                Agregar a carrito
-              </Button>
-            </CardContent>
-          </Card>
+          <Container className={classes.cardGrid} maxWidth="md">
+              <CardMedia className={classes.cardMedia} image={image} title={description} />
+              <CardContent className={classes.cardContent} style={{ textAlign: 'center' }}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Modelo #{number}
+                </Typography>
+                <Typography>{description}</Typography>
+                <Button size="large" color="primary">
+                  Agregar a carrito
+                </Button>
+              </CardContent>
+          </Container>
         </Modal>
       </main>
     </>
