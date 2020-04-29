@@ -16,6 +16,8 @@ import Homepage from './components/HomePage';
 import Catalog from './components/Catalog';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 const history = createBrowserHistory();
 
@@ -54,8 +56,7 @@ function Copyright() {
       <Link color="inherit" href="/">
         Lynda Designs
       </Link>{' '}
-      {new Date().getFullYear()}
-      .
+      {new Date().getFullYear()}.
     </Typography>
   );
 }
@@ -70,54 +71,61 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <Router history={history}>
-        {/* <AppBar */}
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography
-                variant="h6"
-                className={classes.logo}
-                onClick={() => handleClick('/')}
-                style={{ cursor: 'pointer' }}
-              >
-                LyndaDesignsLogo
-              </Typography>
+        {/* Si la pagina es login o signup no se muestra el appbar */}
+        {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
+          <></>
+        ) : (
+          /* <AppBar */
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Typography
+                  variant="h6"
+                  className={classes.logo}
+                  onClick={() => handleClick('/')}
+                  style={{ cursor: 'pointer' }}
+                >
+                  LyndaDesignsLogo
+                </Typography>
 
-              <Grid container spacing={3} className={classes.container}>
-                <Grid item xs={4}>
-                  <Button
-                    onClick={() => handleClick('catalog')}
-                    className={classes.paper}
-                    color="inherit"
-                  >
-                    Catalogo
-                  </Button>
+                <Grid container spacing={3} className={classes.container}>
+                  <Grid item xs={4}>
+                    <Button
+                      onClick={() => handleClick('catalog')}
+                      className={classes.paper}
+                      color="inherit"
+                    >
+                      Catalogo
+                    </Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      onClick={() => handleClick('contact')}
+                      className={classes.paper}
+                      color="inherit"
+                    >
+                      Contacto
+                    </Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      onClick={() => handleClick('cart')}
+                      className={classes.paper}
+                      color="inherit"
+                    >
+                      Carrito
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Button
-                    onClick={() => handleClick('contact')}
-                    className={classes.paper}
-                    color="inherit"
-                  >
-                    Contacto
-                  </Button>
-                </Grid>
-                <Grid item xs={4}>
-                  <Button
-                    onClick={() => handleClick('cart')}
-                    className={classes.paper}
-                    color="inherit"
-                  >
-                    Carrito
-                  </Button>
-                </Grid>
-              </Grid>
 
-              <Button color="inherit">Login</Button>
-            </Toolbar>
-          </AppBar>
-        </div>
-        {/* <AppBar */}
+              <Button color="inherit"
+              onClick={() => handleClick('login')}
+              > Login</Button>
+              </Toolbar>
+            </AppBar>
+          </div>
+          /* <AppBar */
+        )}
 
         <main className={classes.content}>
           <Switch>
@@ -125,19 +133,24 @@ const App = () => {
             <Route exact path="/catalog" component={Catalog} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
           </Switch>
         </main>
 
-        {/* <Footer /> */}
-
-        <footer className={classes.footer}>
-          <Container maxWidth="sm">
-            <Typography variant="body1">Footer.</Typography>
-            <Copyright />
-          </Container>
-        </footer>
-
-        {/* <Footer /> */}
+        {/* Si la pagina es login o signup no se muestra el footer */}
+        {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
+          <></>
+        ) : (
+          /* <Footer /> */
+          <footer className={classes.footer} style={{ textAlign: 'center' }}>
+            <Container maxWidth="sm">
+              <Typography variant="body1">Footer.</Typography>
+              <Copyright />
+            </Container>
+          </footer>
+          /* <Footer /> */
+        )}
       </Router>
     </ApolloProvider>
   );
