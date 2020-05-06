@@ -36,16 +36,26 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(3, 2),
       marginTop: 'auto',
       backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+        theme.palette.type === 'light' ? "#FFD9D9" : "#FFD9D9",
     },
     menuButton: {
       marginRight: 16,
       marginLeft: -12,
+      color:"#000000"
     },
     rightToolbar: {
       marginLeft: 'auto',
       marginRight: -12,
     },
+    appBar:{
+      backgroundColor: "#FFD9D9"
+    },
+    blackColor:{
+      color:"#000000"
+    },
+    whiteColor:{
+      color:"#FFFFFF"
+    }
   }),
 );
 
@@ -84,12 +94,11 @@ const App = () => {
         ) : (
           /* <AppBar */
           <div>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.appBar}>
               <Toolbar>
                 <IconButton
                   className={classes.menuButton}
                   aria-label="Menu"
-                  color="inherit"
                   onClick={handleMenuClick}
                 >
                   <MenuIcon />
@@ -109,14 +118,15 @@ const App = () => {
                   variant="h6"
                   onClick={() => handleClick('/')}
                   style={{ cursor: 'pointer' }}
+                  color="textPrimary"
                 >
                   LyndaLogo
                 </Typography>
                 <section className={classes.rightToolbar}>
-                  <IconButton color="inherit" aria-label="Save" onClick={()=>handleClick("/cart")}>
+                  <IconButton className={classes.blackColor} aria-label="Save" onClick={()=>handleClick("/cart")}>
                     <ShoppingCartIcon />
                   </IconButton>
-                  <Button color="inherit" onClick={() => handleClick('login')}>
+                  <Button className={classes.blackColor} onClick={() => handleClick('login')}>
                     {' '}
                     Login
                   </Button>
@@ -145,7 +155,7 @@ const App = () => {
           /* <Footer /> */
           <footer className={classes.footer} style={{ textAlign: 'center' }}>
             <Container maxWidth="sm">
-              <Typography variant="body1">Footer.</Typography>
+              <Typography variant="body1">Lynda Designs</Typography>
               <Copyright />
             </Container>
           </footer>

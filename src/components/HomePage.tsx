@@ -12,9 +12,10 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import 'react-multi-carousel/lib/styles.css';
 // import '../css/HomePage.css';
 
+
 const useStyles = makeStyles(theme => ({
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#B76E79",
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
@@ -44,6 +45,19 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     position: 'relative',
   },
+  button: {
+    color: "#000000",
+    backgroundColor: "#b7886e"
+  },
+  blackColor:{
+    color:"#000000"
+  },
+  whiteColor:{
+    color:"#FFFFFF"
+  },
+  paperColor:{
+    color: theme.palette.background.paper
+  }
 }));
 
 const responsive = {
@@ -84,12 +98,12 @@ const HomePage: React.FC = () => {
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="textPrimary"
+                  className={classes.paperColor}
                   gutterBottom
                 >
                   Lynda Designs
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
                   Cumpleaños, aniversarios, graduaciones y más.
                 </Typography>
               </div>
@@ -98,20 +112,20 @@ const HomePage: React.FC = () => {
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="textPrimary"
+                  className={classes.paperColor}
                   gutterBottom
                 >
                   Crea una cuenta
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
                   Así podrás hacer pedidos.
                 </Typography>
                 <div className={classes.heroButtons}>
                   <Grid container spacing={2} justify="center">
                     <Button
                       onClick={() => handleClick('signup')}
-                      variant="outlined"
-                      color="primary"
+                      variant="contained"
+                      className={classes.button}
                     >
                       Registrarme
                     </Button>
@@ -123,12 +137,12 @@ const HomePage: React.FC = () => {
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="textPrimary"
+                  className={classes.paperColor} 
                   gutterBottom
                 >
                   Nuestro catálogo.
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
                   Escoge tu preferido.
                 </Typography>
                 <div className={classes.heroButtons}>
@@ -136,7 +150,7 @@ const HomePage: React.FC = () => {
                     <Button
                       onClick={() => handleClick('catalog')}
                       variant="contained"
-                      color="primary"
+                      className={classes.button}
                     >
                       Catálogo
                     </Button>
@@ -148,12 +162,12 @@ const HomePage: React.FC = () => {
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="textPrimary"
+                  className={classes.paperColor} 
                   gutterBottom
                 >
                   Inicia Sesión
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
                   Haz tu pedidos ahora.
                 </Typography>
                 <div className={classes.heroButtons}>
@@ -161,8 +175,8 @@ const HomePage: React.FC = () => {
                     <Grid item>
                       <Button
                         onClick={() => handleClick('login')}
-                        variant="outlined"
-                        color="primary"
+                        variant="contained"
+                        className={classes.button}
                       >
                         Iniciar Sesion
                       </Button>
@@ -175,12 +189,12 @@ const HomePage: React.FC = () => {
                   component="h1"
                   variant="h2"
                   align="center"
-                  color="textPrimary"
+                  className={classes.paperColor} 
                   gutterBottom
                 >
                   ¿Intrigado?
                 </Typography>
-                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
                   Contáctanos para cualquier duda que tengas.
                 </Typography>
                 <div className={classes.heroButtons}>
@@ -189,7 +203,7 @@ const HomePage: React.FC = () => {
                       <Button
                         onClick={() => handleClick('contact')}
                         variant="contained"
-                        color="primary"
+                        className={classes.button}
                       >
                         Contacto
                       </Button>

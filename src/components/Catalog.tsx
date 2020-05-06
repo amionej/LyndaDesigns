@@ -14,7 +14,7 @@ import '../css/Catalog.css';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#B76E79",
     padding: theme.spacing(8, 0, 6),
   },
   cardGrid: {
@@ -40,6 +40,12 @@ const useStyles = makeStyles(theme => ({
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
+  paperColor:{
+    color: theme.palette.background.paper
+  },
+  button:{
+    color: "#000000"
+  }
 }));
 
 const cards = [1, 2, 3];
@@ -77,10 +83,10 @@ const Catalog: React.FC = () => {
       <main>
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            <Typography component="h1" variant="h2" align="center" className={classes.paperColor} gutterBottom>
               Catalogo
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
               ¡Vea todos nuestros diseños y escoja su favorito!
             </Typography>
           </Container>
@@ -95,6 +101,8 @@ const Catalog: React.FC = () => {
                     className={classes.cardMedia}
                     image={pictures[card]}
                     title={descriptions[card]}
+                    style={{cursor:"pointer"}}
+                    onClick={() => openModal(pictures[card], descriptions[card], card)}
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -104,13 +112,14 @@ const Catalog: React.FC = () => {
                   </CardContent>
                   <CardActions>
                     <Button
+                      variant="outlined"
                       size="small"
-                      color="primary"
+                      className={classes.button}
                       onClick={() => openModal(pictures[card], descriptions[card], card)}
                     >
                       Ver
                     </Button>
-                    <Button size="small" color="primary">
+                    <Button size="small" className={classes.button} variant="outlined">
                       Agregar a carrito
                     </Button>
                   </CardActions>
