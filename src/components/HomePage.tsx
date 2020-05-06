@@ -3,7 +3,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 import Carousel from 'react-multi-carousel';
 import GestureIcon from '@material-ui/icons/Gesture';
@@ -12,10 +13,9 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import 'react-multi-carousel/lib/styles.css';
 // import '../css/HomePage.css';
 
-
 const useStyles = makeStyles(theme => ({
   heroContent: {
-    backgroundColor: "#B76E79",
+    backgroundColor: '#B76E79',
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
@@ -45,20 +45,21 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     position: 'relative',
   },
-  button: {
-    color: "#000000",
-    backgroundColor: "#b7886e"
+  paperColor: {
+    color: theme.palette.background.paper,
   },
-  blackColor:{
-    color:"#000000"
-  },
-  whiteColor:{
-    color:"#FFFFFF"
-  },
-  paperColor:{
-    color: theme.palette.background.paper
-  }
 }));
+
+const colorTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#B76E79',
+    },
+    secondary: {
+      main: '#b7886e'
+    }
+  },
+});
 
 const responsive = {
   superLargeDesktop: {
@@ -88,172 +89,174 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   return (
     <>
-      <CssBaseline />
-      <main>
-        <div className={classes.heroContent}>
-          <Container>
-            <Carousel responsive={responsive} autoPlay infinite focusOnSelect centerMode>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Lynda Designs
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                  Cumpleaños, aniversarios, graduaciones y más.
-                </Typography>
-              </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Crea una cuenta
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                  Así podrás hacer pedidos.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Button
-                      onClick={() => handleClick('signup')}
-                      variant="contained"
-                      className={classes.button}
-                    >
-                      Registrarme
-                    </Button>
-                  </Grid>
+      <ThemeProvider theme={colorTheme}>
+        <CssBaseline />
+        <main>
+          <div className={classes.heroContent}>
+            <Container>
+              <Carousel responsive={responsive} autoPlay infinite focusOnSelect centerMode>
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Lynda Designs
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Cumpleaños, aniversarios, graduaciones y más.
+                  </Typography>
                 </div>
-              </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor} 
-                  gutterBottom
-                >
-                  Nuestro catálogo.
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
-                  Escoge tu preferido.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={1} justify="center">
-                    <Button
-                      onClick={() => handleClick('catalog')}
-                      variant="contained"
-                      className={classes.button}
-                    >
-                      Catálogo
-                    </Button>
-                  </Grid>
-                </div>
-              </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor} 
-                  gutterBottom
-                >
-                  Inicia Sesión
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
-                  Haz tu pedidos ahora.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Crea una cuenta
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Así podrás hacer pedidos.
+                  </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
                       <Button
-                        onClick={() => handleClick('login')}
+                        onClick={() => handleClick('signup')}
                         variant="contained"
-                        className={classes.button}
+                        color="secondary"
                       >
-                        Iniciar Sesion
+                        Registrarme
                       </Button>
                     </Grid>
-                  </Grid>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor} 
-                  gutterBottom
-                >
-                  ¿Intrigado?
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor}  paragraph>
-                  Contáctanos para cualquier duda que tengas.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Nuestro catálogo.
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Escoge tu preferido.
+                  </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={1} justify="center">
                       <Button
-                        onClick={() => handleClick('contact')}
+                        onClick={() => handleClick('catalog')}
                         variant="contained"
-                        className={classes.button}
+                        color="secondary"
                       >
-                        Contacto
+                        Catálogo
                       </Button>
                     </Grid>
-                  </Grid>
+                  </div>
                 </div>
-              </div>
-            </Carousel>
-          </Container>
-        </div>
-        <div>
-          <Container className={classes.container}>
-            <Grid container spacing={5}>
-              <Grid item xs={12} md={4}>
-                <div className={classes.item}>
-                  <GestureIcon fontSize="large" />
-                  <Typography variant="h4" className={classes.title} align="center">
-                    Personalizadas
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Inicia Sesión
                   </Typography>
-                  <Typography variant="h6" align="center">
-                    Hechas para cada quien, sin importar lo que buscas.
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Haz tu pedidos ahora.
                   </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Button
+                          onClick={() => handleClick('login')}
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Iniciar Sesion
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </div>
                 </div>
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    ¿Intrigado?
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Contáctanos para cualquier duda que tengas.
+                  </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Button
+                          onClick={() => handleClick('contact')}
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Contacto
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </div>
+              </Carousel>
+            </Container>
+          </div>
+          <div>
+            <Container className={classes.container}>
+              <Grid container spacing={5}>
+                <Grid item xs={12} md={4}>
+                  <div className={classes.item}>
+                    <GestureIcon fontSize="large" />
+                    <Typography variant="h4" className={classes.title} align="center">
+                      Personalizadas
+                    </Typography>
+                    <Typography variant="h6" align="center">
+                      Hechas para cada quien, sin importar lo que buscas.
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <div className={classes.item}>
+                    <TrendingUpIcon fontSize="large" />
+                    <Typography variant="h4" className={classes.title} align="center">
+                      De Alta Calidad
+                    </Typography>
+                    <Typography variant="h6" align="center">
+                      No te preocupes por la calidad, siempre serán excelentes.
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <div className={classes.item}>
+                    <QueryBuilderIcon fontSize="large" />
+                    <Typography variant="h4" className={classes.title} align="center">
+                      Siempre a tiempo
+                    </Typography>
+                    <Typography variant="h6" align="center">
+                      Nunca te preocupes por el día de entrega. Ahí estaremos.
+                    </Typography>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={4}>
-                <div className={classes.item}>
-                  <TrendingUpIcon fontSize="large" />
-                  <Typography variant="h4" className={classes.title} align="center">
-                    De Alta Calidad
-                  </Typography>
-                  <Typography variant="h6" align="center">
-                    No te preocupes por la calidad, siempre serán excelentes.
-                  </Typography>
-                </div>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <div className={classes.item}>
-                  <QueryBuilderIcon fontSize="large" />
-                  <Typography variant="h4" className={classes.title} align="center">
-                    Siempre a tiempo
-                  </Typography>
-                  <Typography variant="h6" align="center">
-                    Nunca te preocupes por el día de entrega. Ahí estaremos.
-                  </Typography>
-                </div>
-              </Grid>
-            </Grid>
-          </Container>
-        </div>
-      </main>
+            </Container>
+          </div>
+        </main>
+      </ThemeProvider>
     </>
   );
 };
