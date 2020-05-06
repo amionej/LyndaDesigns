@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { ApolloProvider } from '@apollo/react-hooks';
-import Grid from '@material-ui/core/Grid';
 import './App.css';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import { IconButton } from '@material-ui/core';
 import client from './api/ApolloClient';
 import Homepage from './components/HomePage';
 import Catalog from './components/Catalog';
@@ -23,28 +27,24 @@ const history = createBrowserHistory();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
     content: {
       display: 'flex',
       flexDirection: 'column',
       minHeight: '85vh',
-    },
-    logo: {},
-    paper: {
-      flexGrow: 1,
-    },
-    container: {
-      flexGrow: 1,
-      padding: theme.spacing(0),
-      textAlign: 'center',
     },
     footer: {
       padding: theme.spacing(3, 2),
       marginTop: 'auto',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    },
+    menuButton: {
+      marginRight: 16,
+      marginLeft: -12,
+    },
+    rightToolbar: {
+      marginLeft: 'auto',
+      marginRight: -12,
     },
   }),
 );
@@ -61,12 +61,19 @@ function Copyright() {
   );
 }
 
-const handleClick = (link: string) => {
-  window.location.href = link;
-};
-
 const App = () => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleClick = (link: string) => {
+    setAnchorEl(null);
+    window.location.href = link;
+  };
 
   return (
     <ApolloProvider client={client}>
@@ -76,51 +83,44 @@ const App = () => {
           <></>
         ) : (
           /* <AppBar */
-          <div className={classes.root}>
+          <div>
             <AppBar position="static">
               <Toolbar>
+                <IconButton
+                  className={classes.menuButton}
+                  aria-label="Menu"
+                  color="inherit"
+                  onClick={handleMenuClick}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={()=>handleClick("/")}>Página Principal</MenuItem>
+                  <MenuItem onClick={()=>handleClick("/catalog")}>Catálogo</MenuItem>
+                  <MenuItem onClick={()=>handleClick("/contact")}>Contacto</MenuItem>
+                </Menu>
                 <Typography
                   variant="h6"
-                  className={classes.logo}
                   onClick={() => handleClick('/')}
                   style={{ cursor: 'pointer' }}
                 >
-                  LyndaDesignsLogo
+                  LyndaLogo
                 </Typography>
-
-                <Grid container spacing={3} className={classes.container}>
-                  <Grid item xs={4}>
-                    <Button
-                      onClick={() => handleClick('catalog')}
-                      className={classes.paper}
-                      color="inherit"
-                    >
-                      Catalogo
-                    </Button>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Button
-                      onClick={() => handleClick('contact')}
-                      className={classes.paper}
-                      color="inherit"
-                    >
-                      Contacto
-                    </Button>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Button
-                      onClick={() => handleClick('cart')}
-                      className={classes.paper}
-                      color="inherit"
-                    >
-                      Carrito
-                    </Button>
-                  </Grid>
-                </Grid>
-
-              <Button color="inherit"
-              onClick={() => handleClick('login')}
-              > Login</Button>
+                <section className={classes.rightToolbar}>
+                  <IconButton color="inherit" aria-label="Save" onClick={()=>handleClick("/cart")}>
+                    <ShoppingCartIcon />
+                  </IconButton>
+                  <Button color="inherit" onClick={() => handleClick('login')}>
+                    {' '}
+                    Login
+                  </Button>
+                </section>
               </Toolbar>
             </AppBar>
           </div>
