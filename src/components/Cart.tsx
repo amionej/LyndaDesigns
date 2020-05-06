@@ -50,7 +50,7 @@ function handleSendOrder() {
 
 export default function Review() {
   const classes = useStyles();
-  //const [totalPriceValue, setTotalPriceValue] = useState('');
+  // const [totalPriceValue, setTotalPriceValue] = useState('');
   return (
     <>
       <CssBaseline />
