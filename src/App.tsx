@@ -22,6 +22,10 @@ import Contact from './components/Contact';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import NewProduct from './components/NewProduct';
+import MyProduct from './components/MyProduct';
+import OrderList from './components/OrderList';
+
 
 const history = createBrowserHistory();
 
