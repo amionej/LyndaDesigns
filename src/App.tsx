@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { ApolloProvider } from '@apollo/react-hooks';
 import './css/App.css';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,13 +14,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { IconButton } from '@material-ui/core';
-import client from './api/ApolloClient';
+import Apollo from './api/ApolloClient';
 import Homepage from './components/HomePage';
 import Catalog from './components/Catalog';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Login from './components/auth/login/Login';
+import SignUp from './components/auth/signup/SignUp';
+import AuthProvider from './components/auth/AuthProvider';
 
 const history = createBrowserHistory();
 
@@ -35,27 +35,26 @@ const useStyles = makeStyles((theme: Theme) =>
     footer: {
       padding: theme.spacing(3, 2),
       marginTop: 'auto',
-      backgroundColor:
-        theme.palette.type === 'light' ? "#FFD9D9" : "#FFD9D9",
+      backgroundColor: theme.palette.type === 'light' ? '#FFD9D9' : '#FFD9D9',
     },
     menuButton: {
       marginRight: 16,
       marginLeft: -12,
-      color:"#000000"
+      color: '#000000',
     },
     rightToolbar: {
       marginLeft: 'auto',
       marginRight: -12,
     },
-    appBar:{
-      backgroundColor: "#FFD9D9"
+    appBar: {
+      backgroundColor: '#FFD9D9',
     },
-    blackColor:{
-      color:"#000000"
+    blackColor: {
+      color: '#000000',
     },
-    whiteColor:{
-      color:"#FFFFFF"
-    }
+    whiteColor: {
+      color: '#FFFFFF',
+    },
   }),
 );
 
@@ -86,83 +85,89 @@ const App = () => {
   };
 
   return (
-    <ApolloProvider client={client}>
-      <Router history={history}>
-        {/* Si la pagina es login o signup no se muestra el appbar */}
-        {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
-          <></>
-        ) : (
-          /* <AppBar */
-          <div>
-            <AppBar position="static" className={classes.appBar}>
-              <Toolbar>
-                <IconButton
-                  className={classes.menuButton}
-                  aria-label="Menu"
-                  onClick={handleMenuClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={()=>handleClick("/")}>Página Principal</MenuItem>
-                  <MenuItem onClick={()=>handleClick("/catalog")}>Catálogo</MenuItem>
-                  <MenuItem onClick={()=>handleClick("/contact")}>Contacto</MenuItem>
-                </Menu>
-                <Typography
-                  variant="h6"
-                  onClick={() => handleClick('/')}
-                  style={{ cursor: 'pointer' }}
-                  color="textPrimary"
-                >
-                  LyndaLogo
-                </Typography>
-                <section className={classes.rightToolbar}>
-                  <IconButton className={classes.blackColor} aria-label="Save" onClick={()=>handleClick("/cart")}>
-                    <ShoppingCartIcon />
+    <Apollo>
+      <AuthProvider>
+        <Router history={history}>
+          {/* Si la pagina es login o signup no se muestra el appbar */}
+          {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
+            <></>
+          ) : (
+            /* <AppBar */
+            <div>
+              <AppBar position="static" className={classes.appBar}>
+                <Toolbar>
+                  <IconButton
+                    className={classes.menuButton}
+                    aria-label="Menu"
+                    onClick={handleMenuClick}
+                  >
+                    <MenuIcon />
                   </IconButton>
-                  <Button className={classes.blackColor} onClick={() => handleClick('login')}>
-                    {' '}
-                    Login
-                  </Button>
-                </section>
-              </Toolbar>
-            </AppBar>
-          </div>
-          /* <AppBar */
-        )}
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem onClick={() => handleClick('/')}>Página Principal</MenuItem>
+                    <MenuItem onClick={() => handleClick('/catalog')}>Catálogo</MenuItem>
+                    <MenuItem onClick={() => handleClick('/contact')}>Contacto</MenuItem>
+                  </Menu>
+                  <Typography
+                    variant="h6"
+                    onClick={() => handleClick('/')}
+                    style={{ cursor: 'pointer' }}
+                    color="textPrimary"
+                  >
+                    LyndaLogo
+                  </Typography>
+                  <section className={classes.rightToolbar}>
+                    <IconButton
+                      className={classes.blackColor}
+                      aria-label="Save"
+                      onClick={() => handleClick('/cart')}
+                    >
+                      <ShoppingCartIcon />
+                    </IconButton>
+                    <Button className={classes.blackColor} onClick={() => handleClick('login')}>
+                      {' '}
+                      Login
+                    </Button>
+                  </section>
+                </Toolbar>
+              </AppBar>
+            </div>
+            /* <AppBar */
+          )}
 
-        <main className={classes.content}>
-          <Switch>
-            <Route exact path="/" component={Homepage} />
-            <Route exact path="/catalog" component={Catalog} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
-          </Switch>
-        </main>
+          <main className={classes.content}>
+            <Switch>
+              <Route exact path="/" component={Homepage} />
+              <Route exact path="/catalog" component={Catalog} />
+              <Route exact path="/contact" component={Contact} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={SignUp} />
+            </Switch>
+          </main>
 
-        {/* Si la pagina es login o signup no se muestra el footer */}
-        {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
-          <></>
-        ) : (
-          /* <Footer /> */
-          <footer className={classes.footer} style={{ textAlign: 'center' }}>
-            <Container maxWidth="sm">
-              <Typography variant="body1">Lynda Designs</Typography>
-              <Copyright />
-            </Container>
-          </footer>
-          /* <Footer /> */
-        )}
-      </Router>
-    </ApolloProvider>
+          {/* Si la pagina es login o signup no se muestra el footer */}
+          {history.location.pathname === '/login' || history.location.pathname === '/signup' ? (
+            <></>
+          ) : (
+            /* <Footer /> */
+            <footer className={classes.footer} style={{ textAlign: 'center' }}>
+              <Container maxWidth="sm">
+                <Typography variant="body1">Lynda Designs</Typography>
+                <Copyright />
+              </Container>
+            </footer>
+            /* <Footer /> */
+          )}
+        </Router>
+      </AuthProvider>
+    </Apollo>
   );
 };
 

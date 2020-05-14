@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import Modal from 'react-modal';
 import { ThemeProvider } from '@material-ui/styles';
 import '../css/Catalog.css';
+import { useMutation } from '@apollo/react-hooks';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -83,6 +84,7 @@ const Catalog: React.FC = () => {
   function closeModal() {
     setIsOpen(false);
   }
+
   return (
     <>
       <ThemeProvider theme={colorTheme}>
@@ -127,7 +129,9 @@ const Catalog: React.FC = () => {
                       <Button
                         size="small"
                         color="primary"
-                        onClick={() => openModal(pictures[card], descriptions[card], card)}
+                        onClick={() => {
+                          openModal(pictures[card], descriptions[card], card);
+                        }}
                       >
                         Ver
                       </Button>

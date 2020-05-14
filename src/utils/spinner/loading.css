@@ -1,0 +1,9 @@
+.spinner-encloser {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  position: relative;
+  top: 50vh;
+}
