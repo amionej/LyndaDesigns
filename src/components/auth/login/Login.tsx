@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -11,15 +10,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/react-hooks';
 import cookie from 'react-cookies';
+import GET_CURRENT_USER from '../auth.queries';
 import GET_TOKEN from './login.mutations';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Lynda Designs
-      </Link>{' '}
+      <span>Lynda Designs</span>
       {new Date().getFullYear()}.
     </Typography>
   );
@@ -63,7 +61,13 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [GetToken] = useMutation(GET_TOKEN);
+  const [GetToken] = useMutation(GET_TOKEN, {
+    refetchQueries: [
+      {
+        query: GET_CURRENT_USER,
+      },
+    ],
+  });
 
   const handleSignIn = async () => {
     try {
@@ -81,7 +85,7 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container className={classes.root}>
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -127,9 +131,7 @@ const Login: React.FC = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  ¿No tienes cuenta? Registrate
-                </Link>
+                <Link to="/signup">¿No tienes cuenta? Registrate</Link>
               </Grid>
             </Grid>
             <Box mt={5}>

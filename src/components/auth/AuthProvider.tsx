@@ -13,12 +13,13 @@ const AuthProvider: React.FC<Props> = ({ children }: Props) => {
 
   const { data, loading } = useQuery(GET_CURRENT_USER, {
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
 
   useEffect(() => {
     if (!loading) {
       const userData = data?.me;
+      console.log(userData);
       if (userData) {
         setState({ user: userData, authenticated: true, loading: false });
       } else {

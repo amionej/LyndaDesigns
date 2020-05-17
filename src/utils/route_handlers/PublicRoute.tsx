@@ -20,7 +20,7 @@ const PublicRoute: React.FC<Props> = (props: Props) => {
     if (fallback) {
       return <Redirect to={fallback} />;
     }
-    return <Redirect to="/catalogo" />;
+    return <Redirect to="/catalog" />;
   }
 
   // eslint-disable-next-line

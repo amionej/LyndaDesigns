@@ -3,7 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -55,7 +55,7 @@ const SignUp: React.FC = () => {
   const [passwordValue, setPasswordValue] = useState('');
   const classes = useStyles();
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -130,9 +130,7 @@ const SignUp: React.FC = () => {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="login" variant="body2">
-                  ¿Ya tienes cuenta? Inicia Sesion.
-                </Link>
+                <Link to="/login">¿Ya tienes cuenta? Inicia Sesion.</Link>
               </Grid>
             </Grid>
           </form>

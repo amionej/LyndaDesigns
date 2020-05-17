@@ -1,9 +1,9 @@
 export interface User {
   id: number;
-  first_name: String;
-  last_name: String;
+  firstName: String;
+  lastName: String;
   email: String;
-  is_staff: Boolean;
-  is_superuser: Boolean;
-  last_login: Date;
+  isStaff: Boolean;
+  isSuperuser: Boolean;
+  lastLogin: Date;
 }

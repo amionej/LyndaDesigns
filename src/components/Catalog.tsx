@@ -89,104 +89,102 @@ const Catalog: React.FC = () => {
     <>
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
-        <main>
-          <div className={classes.heroContent}>
-            <Container maxWidth="sm">
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                className={classes.paperColor}
-                gutterBottom
-              >
-                Catalogo
-              </Typography>
-              <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                ¡Vea todos nuestros diseños y escoja su favorito!
-              </Typography>
-            </Container>
-          </div>
-
-          <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4}>
-              {cards.map(card => (
-                <Grid item key={card} xs={12} sm={6} md={4}>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={pictures[card]}
-                      title={descriptions[card]}
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => openModal(pictures[card], descriptions[card], card)}
-                    />
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Modelo #{card}
-                      </Typography>
-                      <Typography>{descriptions[card]}</Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        size="small"
-                        color="primary"
-                        onClick={() => {
-                          openModal(pictures[card], descriptions[card], card);
-                        }}
-                      >
-                        Ver
-                      </Button>
-                      <Button size="small" color="primary">
-                        Agregar a carrito
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+        <div className={classes.heroContent}>
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              className={classes.paperColor}
+              gutterBottom
+            >
+              Catalogo
+            </Typography>
+            <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+              ¡Vea todos nuestros diseños y escoja su favorito!
+            </Typography>
           </Container>
+        </div>
 
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            closeTimeoutMS={200}
-            style={{
-              overlay: {
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(255, 255, 255, 0.75)',
-              },
-              content: {
-                position: 'fixed',
-                top: '10%',
-                left: '10%',
-                right: '10%',
-                bottom: 'auto',
-                border: '1px solid #ccc',
-                background: '#fff',
-                borderRadius: '4px',
-                outline: 'none',
-                padding: '20px',
-              },
-            }}
-            contentLabel="Example Modal"
-          >
-            <Container className={classes.cardGrid} maxWidth="md">
-              <CardMedia className={classes.cardMedia} image={image} title={description} />
-              <CardContent className={classes.cardContent} style={{ textAlign: 'center' }}>
-                <Typography gutterBottom variant="h5" component="h2">
-                  Modelo #{number}
-                </Typography>
-                <Typography>{description}</Typography>
-                <Button size="large" color="primary">
-                  Agregar a carrito
-                </Button>
-              </CardContent>
-            </Container>
-          </Modal>
-        </main>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+            {cards.map(card => (
+              <Grid item key={card} xs={12} sm={6} md={4}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={pictures[card]}
+                    title={descriptions[card]}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => openModal(pictures[card], descriptions[card], card)}
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Modelo #{card}
+                    </Typography>
+                    <Typography>{descriptions[card]}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => {
+                        openModal(pictures[card], descriptions[card], card);
+                      }}
+                    >
+                      Ver
+                    </Button>
+                    <Button size="small" color="primary">
+                      Agregar a carrito
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          closeTimeoutMS={200}
+          style={{
+            overlay: {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(255, 255, 255, 0.75)',
+            },
+            content: {
+              position: 'fixed',
+              top: '10%',
+              left: '10%',
+              right: '10%',
+              bottom: 'auto',
+              border: '1px solid #ccc',
+              background: '#fff',
+              borderRadius: '4px',
+              outline: 'none',
+              padding: '20px',
+            },
+          }}
+          contentLabel="Example Modal"
+        >
+          <Container className={classes.cardGrid} maxWidth="md">
+            <CardMedia className={classes.cardMedia} image={image} title={description} />
+            <CardContent className={classes.cardContent} style={{ textAlign: 'center' }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                Modelo #{number}
+              </Typography>
+              <Typography>{description}</Typography>
+              <Button size="large" color="primary">
+                Agregar a carrito
+              </Button>
+            </CardContent>
+          </Container>
+        </Modal>
       </ThemeProvider>
     </>
   );
