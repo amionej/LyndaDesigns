@@ -19,7 +19,6 @@ const AuthProvider: React.FC<Props> = ({ children }: Props) => {
   useEffect(() => {
     if (!loading) {
       const userData = data?.me;
-      console.log(userData);
       if (userData) {
         setState({ user: userData, authenticated: true, loading: false });
       } else {

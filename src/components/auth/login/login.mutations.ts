@@ -4,7 +4,6 @@ const GET_TOKEN = gql`
   mutation GetToken($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
-      refreshToken
     }
   }
 `;

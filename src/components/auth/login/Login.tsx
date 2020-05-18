@@ -77,7 +77,7 @@ const Login: React.FC = () => {
           password,
         },
       }).then(({ data }) => {
-        cookie.save('refresh_token', data.refreshToken, {});
+        // cookie.save('refresh_token', data.refreshToken, {});
         history.push('/catalog');
       });
     } catch (e) {
