@@ -1,0 +1,8 @@
+.home-encloser {
+  display: flex;
+  justify-content: flex-end;
+}
+.gohome {
+  margin-top: 32px;
+  margin-right: 32px;
+}

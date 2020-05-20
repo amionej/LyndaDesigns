@@ -5,13 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/react-hooks';
-import cookie from 'react-cookies';
 import GET_CURRENT_USER from '../auth.queries';
 import GET_TOKEN from './login.mutations';
+import './login.css';
 
 function Copyright() {
   return (
@@ -37,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
   },
   paper: {
-    margin: theme.spacing(32, 4),
+    margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -52,6 +54,8 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#B76E79',
+    color: 'white',
   },
 }));
 
@@ -76,8 +80,7 @@ const Login: React.FC = () => {
           username,
           password,
         },
-      }).then(({ data }) => {
-        // cookie.save('refresh_token', data.refreshToken, {});
+      }).then(() => {
         history.push('/catalog');
       });
     } catch (e) {
@@ -88,7 +91,16 @@ const Login: React.FC = () => {
     <Grid container className={classes.root}>
       <CssBaseline />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Link to="/">
+          <FontAwesomeIcon icon={faHome} size="3x" color="#B76E79" className="goback" />
+        </Link>
         <div className={classes.paper}>
+          <FontAwesomeIcon
+            icon={faSignInAlt}
+            style={{ marginBottom: '5px' }}
+            size="3x"
+            color="#ffd9d9"
+          />
           <Typography component="h1" variant="h5">
             Inicio de Sesion
           </Typography>

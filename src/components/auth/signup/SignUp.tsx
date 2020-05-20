@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import './signup.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#ffd9d9',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -40,10 +43,12 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#B76E79',
+    color: 'white',
   },
 }));
 
-function hangleSignUp(fName, lName, email, password) {
+function hangleSignUp(fName, lName, email, username, password) {
   console.log(fName, lName, email, password);
   Swal.fire('¡Excelente!', 'Tu cuenta ha sido creada.', 'success');
 }
@@ -52,6 +57,7 @@ const SignUp: React.FC = () => {
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
+  const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const classes = useStyles();
   return (
@@ -59,12 +65,17 @@ const SignUp: React.FC = () => {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className="home-encloser">
+          <Link to="/">
+            <FontAwesomeIcon icon={faHome} size="3x" color="#B76E79" className="gohome" />
+          </Link>
+        </div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Registarse
+            Crea una cuenta
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
@@ -110,6 +121,18 @@ const SignUp: React.FC = () => {
                   variant="outlined"
                   required
                   fullWidth
+                  id="username"
+                  label="Usuario"
+                  name="username"
+                  autoComplete="username"
+                  onChange={e => setUsernameValue(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
                   name="password"
                   label="Contraseña"
                   type="password"
@@ -122,11 +145,18 @@ const SignUp: React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              color="primary"
               className={classes.submit}
-              onClick={() => hangleSignUp(firstNameValue, lastNameValue, emailValue, passwordValue)}
+              onClick={() =>
+                hangleSignUp(
+                  firstNameValue,
+                  lastNameValue,
+                  emailValue,
+                  usernameValue,
+                  passwordValue,
+                )
+              }
             >
-              Registarse
+              Registrar cuenta
             </Button>
             <Grid container justify="flex-end">
               <Grid item>

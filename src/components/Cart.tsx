@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,6 +14,8 @@ import CardActions from '@material-ui/core/CardActions';
 import Swal from 'sweetalert2';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { useMutation } from '@apollo/react-hooks';
+import LOGOUT from './auth/auth.mutations';
 
 const products = [
   { name: 'Modelo 1', desc: 'Un modelo clásico y sencillo', price: '$200' },
@@ -56,18 +59,29 @@ const colorTheme = createMuiTheme({
   },
 });
 
-function handleSendOrder() {
-  Swal.fire({
-    icon: 'success',
-    title: '¡Gracias!',
-    text: 'Tu pedido por 600 ha sido creado.',
-    showConfirmButton: true,
-    confirmButtonColor: '#B76E79'
-  })
+const Cart: React.FC = () => {
+  const [Logout, { client }] = useMutation(LOGOUT);
+  const history = useHistory();
 
-}
-
-export default function Review() {
+  const handleSendOrder = async () => {
+    try {
+      await Logout().then(() => {
+        console.log(client);
+        client.resetStore();
+        // history.go(0);
+        history.push('/login');
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: '¡Gracias!',
+    //   text: 'Tu pedido por 600 ha sido creado.',
+    //   showConfirmButton: true,
+    //   confirmButtonColor: '#B76E79',
+    // });
+  };
   const classes = useStyles();
   // const [totalPriceValue, setTotalPriceValue] = useState('');
   return (
@@ -119,4 +133,6 @@ export default function Review() {
       </ThemeProvider>
     </>
   );
-}
+};
+
+export default Cart;

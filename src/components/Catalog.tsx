@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,7 +12,6 @@ import Container from '@material-ui/core/Container';
 import Modal from 'react-modal';
 import { ThemeProvider } from '@material-ui/styles';
 import '../css/Catalog.css';
-import { useMutation } from '@apollo/react-hooks';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
