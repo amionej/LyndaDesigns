@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getType } from 'typesafe-actions';
+import Swal from 'sweetalert2';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,6 +20,8 @@ import GET_PRODUCTS from './catalog.queries';
 import Loading from '../../utils/spinner/Loading';
 import { Product } from './catalog.types';
 import QuantityButtons from '../../utils/quantity-buttons/QuantityButtons';
+import { addProductToCart } from '../cart/cart.actions';
+import { CartState } from '../cart/cart.types';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -36,6 +41,14 @@ const Catalog: React.FC = () => {
   });
 
   const products = data ? data.allProducts : [];
+
+  const dispatch = useDispatch();
+
+  const cartObjects = useSelector((state: CartState) => state.cartObjects);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -85,7 +98,7 @@ const Catalog: React.FC = () => {
                     </CardContent>
                     <CardActions>
                       <Button
-                        disabled={!p.status}
+                        disabled={!p.status || cartObjects.some(c => c.product.id === p.id)}
                         size="small"
                         color="primary"
                         onClick={() => {
@@ -94,7 +107,9 @@ const Catalog: React.FC = () => {
                           setIsOpen(true);
                         }}
                       >
-                        Seleccionar
+                        {cartObjects.some(c => c.product.id === p.id)
+                          ? 'Producto en carrito'
+                          : 'Seleccionar'}
                       </Button>
                       <span className={`action-btns ${p.status ? 'available' : 'unavailable'}`}>
                         {p.status ? 'Disponible' : 'Agotado'}
@@ -111,7 +126,7 @@ const Catalog: React.FC = () => {
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={() => {
-              setIsOpen(false);
+              closeModal();
             }}
             closeTimeoutMS={200}
             contentLabel="Example Modal"
@@ -134,7 +149,21 @@ const Catalog: React.FC = () => {
               <div className="modal-actions">
                 <span>¿Cuántos quieres?</span>
                 <QuantityButtons quantity={quantity} setQuantity={setQuantity} />
-                <Button color="primary" style={{ paddingTop: '1rem', fontSize: '1rem' }}>
+                <Button
+                  color="primary"
+                  style={{ paddingTop: '1rem', fontSize: '1rem' }}
+                  onClick={() => {
+                    dispatch({
+                      type: getType(addProductToCart),
+                      payload: {
+                        product: selectedProduct,
+                        quantity,
+                      },
+                    });
+                    Swal.fire(`¡Exito!`, 'Producto agregado a carrito', 'success');
+                    closeModal();
+                  }}
+                >
                   Agregar a carrito
                 </Button>
               </div>

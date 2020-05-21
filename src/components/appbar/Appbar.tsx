@@ -1,13 +1,15 @@
 import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { useHistory, Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useSelector } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import { IconButton } from '@material-ui/core';
 import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { CartState } from '../cart/cart.types';
 import './appbar.css';
-import { useHistory, Link } from 'react-router-dom';
 import useAuthenticated from '../../utils/hooks/useAuthenticated';
 
 const AppBar: React.FC = () => {
@@ -21,6 +23,8 @@ const AppBar: React.FC = () => {
   };
 
   const { user, authenticated } = useAuthenticated();
+
+  const cartObjects = useSelector((state: CartState) => state.cartObjects);
 
   const history = useHistory();
 
@@ -55,16 +59,19 @@ const AppBar: React.FC = () => {
           LyndaLogo
         </Typography>
         <section className="right-tool-bar">
-          <Link to="cart" className="shopping-cart-link">
-            <ShoppingCartIcon />
-          </Link>
+          <div className="cart-link">
+            <Link to="cart" className="shopping-cart-link">
+              <ShoppingCartIcon />
+            </Link>
+            <span className="cart-objects-badge">{cartObjects.length}</span>
+          </div>
           {authenticated ? (
             <Link to="/perfil" className="profile-link">
               {`${user.firstName[0]}${user.lastName[0]}`}
             </Link>
           ) : (
             <Link to="/login" className="login-link">
-              Login
+              Iniciar Sesión
             </Link>
           )}
         </section>

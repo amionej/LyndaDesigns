@@ -8,7 +8,7 @@ export const loadState = () => {
     }
 
     const cart = JSON.parse(serializedCartState);
-    const initialState = { cartObjects: cart.cartObjects };
+    const initialState = { cartObjects: cart };
 
     return initialState;
   } catch (err) {
