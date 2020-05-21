@@ -13,6 +13,10 @@ import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './signup.css';
+import { useMutation } from '@apollo/react-hooks';
+import CREATE_USER from './signup.mutations';
+import GET_TOKEN from '../login/login.mutations';
+import GET_CURRENT_USER from '../auth.queries';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,18 +52,59 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function hangleSignUp(fName, lName, email, username, password) {
-  console.log(fName, lName, email, password);
-  Swal.fire('¡Excelente!', 'Tu cuenta ha sido creada.', 'success');
-}
-
 const SignUp: React.FC = () => {
-  const [firstNameValue, setFirstNameValue] = useState('');
-  const [lastNameValue, setLastNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [usernameValue, setUsernameValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const [firstName, setFirstNameValue] = useState('');
+  const [lastName, setLastNameValue] = useState('');
+  const [email, setEmailValue] = useState('');
+  const [username, setUsernameValue] = useState('');
+  const [password, setPasswordValue] = useState('');
   const classes = useStyles();
+
+  const [CreateUser] = useMutation(CREATE_USER);
+
+  const [GetToken] = useMutation(GET_TOKEN, {
+    refetchQueries: [
+      {
+        query: GET_CURRENT_USER,
+      },
+    ],
+  });
+
+  const hangleSignUp = async () => {
+    try {
+      await CreateUser({
+        variables: {
+          username,
+          password,
+          email,
+          firstName,
+          lastName,
+        },
+      }).then(() => {
+        Swal.fire({
+          title: `Bienvenido,
+          ${firstName}!`,
+          text: 'Tu cuenta ha sido creada.',
+          icon: 'success',
+          onOpen: () => {
+            try {
+              GetToken({
+                variables: {
+                  username,
+                  password,
+                },
+              });
+            } catch (e) {
+              console.log(e);
+            }
+          },
+        });
+      });
+    } catch ({ e }) {
+      Swal.fire(`Error`, `Tu cuenta ha sido creada. Causa: ${e}`, 'error');
+    }
+  };
+
   return (
     <Grid container className={classes.root}>
       <CssBaseline />
@@ -146,15 +191,7 @@ const SignUp: React.FC = () => {
               fullWidth
               variant="contained"
               className={classes.submit}
-              onClick={() =>
-                hangleSignUp(
-                  firstNameValue,
-                  lastNameValue,
-                  emailValue,
-                  usernameValue,
-                  passwordValue,
-                )
-              }
+              onClick={() => hangleSignUp()}
             >
               Registrar cuenta
             </Button>

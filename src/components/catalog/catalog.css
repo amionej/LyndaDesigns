@@ -1,0 +1,113 @@
+.ReactModal__Overlay {
+  opacity: 0;
+  /* transform: translateX(-100px); */
+  transition: all 350ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  /* transform: translateX(0px); */
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  /* transform: translateX(-100px); */
+}
+
+.ReactModal__Content {
+  position: fixed;
+  inset: 10% 10% auto !important;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+  overflow: auto;
+  border-radius: 4px;
+  outline: currentcolor none medium;
+  padding: 20px;
+  transform: translateX(-100px);
+  transition: all 350ms ease-in-out;
+}
+
+@media (min-width: 500px) {
+  .ReactModal__Content {
+    inset: 10% 25% auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .ReactModal__Content {
+    inset: 10% 35% auto !important;
+  }
+}
+
+.ReactModal__Content--after-open {
+  transform: translateX(0px);
+}
+
+.ReactModal__Content--before-close {
+  transform: translateX(-100px);
+}
+
+.heroContent {
+  background-color: #b76e79;
+  padding: 64px 0px 48px;
+}
+.cardGrid {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cardMedia {
+  padding-top: 56.25%;
+}
+.cardContent {
+  flex-grow: 1;
+}
+.content {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.paperColor {
+  color: #fff;
+}
+
+.available {
+  background-color: #6eb795;
+}
+
+.unavailable {
+  background-color: #d14949;
+}
+
+.action-btns {
+  padding-right: 7px;
+  padding-left: 7px;
+  border-radius: 5px;
+  text-align: end;
+  font-size: 0.8125rem;
+  color: white;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+
+.MuiCardActions-root {
+  justify-content: space-between;
+}
+
+.modal-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}

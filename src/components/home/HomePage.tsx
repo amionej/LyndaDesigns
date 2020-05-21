@@ -12,6 +12,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import 'react-multi-carousel/lib/styles.css';
 import './homepage.css';
+import useAuthenticated from '../../utils/hooks/useAuthenticated';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -84,6 +85,9 @@ const responsive = {
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
+
+  const { authenticated, user } = useAuthenticated();
+
   return (
     <>
       <ThemeProvider theme={colorTheme}>
@@ -91,6 +95,22 @@ const HomePage: React.FC = () => {
         <div className={classes.heroContent}>
           <Container>
             <Carousel responsive={responsive} autoPlay infinite focusOnSelect centerMode>
+              {authenticated && (
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Bonito día, {user.firstName}.
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    ¡Nos da gusto que estés de vuelta!
+                  </Typography>
+                </div>
+              )}
               <div>
                 <Typography
                   component="h1"
@@ -105,29 +125,31 @@ const HomePage: React.FC = () => {
                   Cumpleaños, aniversarios, graduaciones y más.
                 </Typography>
               </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Crea una cuenta
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                  Así podrás hacer pedidos.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Link to="/signup" className="carousel-link">
-                        Registrarme
-                      </Link>
+              {!authenticated && (
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Crea una cuenta
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Así podrás hacer pedidos.
+                  </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Link to="/signup" className="carousel-link">
+                          Registrarme
+                        </Link>
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
                 <Typography
                   component="h1"
@@ -151,29 +173,31 @@ const HomePage: React.FC = () => {
                   </Grid>
                 </div>
               </div>
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Inicia Sesión
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                  Haz tu pedidos ahora.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Link to="/login" className="carousel-link">
-                        Iniciar Sesion
-                      </Link>
+              {!authenticated && (
+                <div>
+                  <Typography
+                    component="h1"
+                    variant="h2"
+                    align="center"
+                    className={classes.paperColor}
+                    gutterBottom
+                  >
+                    Inicia Sesión
+                  </Typography>
+                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+                    Haz tu pedidos ahora.
+                  </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Link to="/login" className="carousel-link">
+                          Iniciar Sesion
+                        </Link>
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
                 <Typography
                   component="h1"

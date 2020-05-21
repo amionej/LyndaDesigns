@@ -11,7 +11,7 @@ const CREATE_USER = gql`
     createUser(
       username: $username
       password: $password
-      email: "email123@prueba.com"
+      email: $email
       firstName: $firstName
       lastName: $lastName
     ) {

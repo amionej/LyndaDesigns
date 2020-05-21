@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { useMutation } from '@apollo/react-hooks';
-import LOGOUT from './auth/auth.mutations';
+import LOGOUT from '../auth/auth.mutations';
 
 const products = [
   { name: 'Modelo 1', desc: 'Un modelo clásico y sencillo', price: '$200' },
