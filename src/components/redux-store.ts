@@ -7,8 +7,6 @@ const persistedState = loadState();
 
 const store = createStore(cartReducer, persistedState);
 
-console.log(store.getState());
-
 store.subscribe(
   throttle(() => {
     saveState(store.getState().cartObjects);

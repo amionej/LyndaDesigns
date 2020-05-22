@@ -8,7 +8,6 @@ export interface CartObject {
 export interface cartPropertyAccess {
   number: number;
   index: number;
-  identifier: string;
 }
 
 export interface CartState {

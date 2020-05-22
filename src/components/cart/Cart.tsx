@@ -1,52 +1,29 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getType } from 'typesafe-actions';
+import { useHistory, Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import CardActions from '@material-ui/core/CardActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { useMutation } from '@apollo/react-hooks';
 import LOGOUT from '../auth/auth.mutations';
-
-const products = [
-  { name: 'Modelo 1', desc: 'Un modelo clásico y sencillo', price: '$200' },
-  { name: 'Modelo 2', desc: '¡Personalizado para tu persona favorita!', price: '$250' },
-  { name: 'Modelo 3', desc: 'Un detalle lindo para mamá.', price: '$150' },
-];
-
-const useStyles = makeStyles(theme => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    align: 'center',
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-}));
+import { CartState, CartObject } from './cart.types';
+import toCurrency from '../../utils/currency/currency';
+import './cart.css';
+import '../../utils/currency/currency.css';
+import QuantityButtons from '../../utils/quantity-buttons/QuantityButtons';
+import useAuthenticated from '../../utils/hooks/useAuthenticated';
+import { removeProductFromCart, clearCart } from './cart.actions';
+import CREATE_ORDER from './cart.mutations';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -62,72 +39,153 @@ const colorTheme = createMuiTheme({
 const Cart: React.FC = () => {
   const [Logout, { client }] = useMutation(LOGOUT);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const cartObjects = useSelector((state: CartState) => state.cartObjects);
+
+  const { authenticated, user } = useAuthenticated();
+
+  const [CreateOrder] = useMutation(CREATE_ORDER);
 
   const handleSendOrder = async () => {
     try {
-      await Logout().then(() => {
-        console.log(client);
-        client.resetStore();
-        // history.go(0);
-        history.push('/login');
+      await CreateOrder({
+        variables: {
+          OrderItemInput: cartObjects.map((cartObject: CartObject) => {
+            return { productId: cartObject.product.id, quantity: cartObject.quantity };
+          }),
+        },
+      }).then(() => {
+        Swal.fire({
+          title: `Éxito,
+          ${user.firstName}!`,
+          text: 'Tu orden ha sido pedida.',
+          icon: 'success',
+          onOpen: () => {
+            dispatch({
+              type: getType(clearCart),
+            });
+          },
+          onClose: async () => {
+            try {
+              await Logout().then(() => {
+                client.resetStore();
+                // history.go(0);
+                history.push('/login');
+              });
+            } catch (e) {
+              // Ignore write errors
+            }
+          },
+        });
       });
-    } catch (e) {
-      console.log(e);
+    } catch ({ e }) {
+      Swal.fire(`Error`, `Tu no ha sido procesada. Causa: ${e}`, 'error');
     }
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: '¡Gracias!',
-    //   text: 'Tu pedido por 600 ha sido creado.',
-    //   showConfirmButton: true,
-    //   confirmButtonColor: '#B76E79',
-    // });
   };
-  const classes = useStyles();
-  // const [totalPriceValue, setTotalPriceValue] = useState('');
+
   return (
     <>
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
-        <Container className={classes.cardGrid}>
-          <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-              <Typography variant="h6" gutterBottom>
-                Order summary
-              </Typography>
-              <List disablePadding>
-                {products.map(product => (
-                  <ListItem className={classes.listItem} key={product.name}>
-                    <ListItemText primary={product.name} secondary={product.desc} />
-                    <Typography variant="body2">{product.price}</Typography>
-                  </ListItem>
-                ))}
-                <ListItem className={classes.listItem}>
-                  <ListItemText primary="Total" />
-                  <Typography variant="subtitle1" className={classes.total}>
-                    $600
-                  </Typography>
-                </ListItem>
-              </List>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="h6" gutterBottom className={classes.title}>
-                    A nombre de:
-                  </Typography>
-                  <Typography gutterBottom>Carlos Garza</Typography>
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions>
-              <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                style={{ display: 'flex', marginLeft: 'auto' }}
-                onClick={() => handleSendOrder()}
-              >
-                Hacer pedido
-              </Button>
-            </CardActions>
+        <Container className="card-grid">
+          <Card className="card">
+            {cartObjects.length > 0 ? (
+              <CardContent className="card-content">
+                <Typography variant="h6" gutterBottom>
+                  Resumen de tu carrito
+                </Typography>
+                <ul className="cart-list">
+                  {cartObjects.map((cartObject: CartObject, index) => (
+                    <li className="list-item" key={cartObject.product.id}>
+                      <div className="list-item-start">
+                        <img
+                          src={`http://127.0.0.1:8000/media/${cartObject.product.image.image}`}
+                          alt="imagen_de_producto"
+                          className="product-image"
+                        />
+                        <div className="product-text">
+                          <span className="product-title">{cartObject.product.productName}</span>
+                          <span className="product-description">
+                            {cartObject.product.description}
+                          </span>
+                          <Button
+                            size="small"
+                            className="product-eliminate"
+                            onClick={() => {
+                              dispatch({
+                                type: getType(removeProductFromCart),
+                                payload: cartObject,
+                              });
+                            }}
+                          >
+                            Eliminar
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="list-item-end">
+                        <QuantityButtons
+                          quantity={cartObject.quantity}
+                          index={index}
+                          className="quantity-buttons"
+                        />
+                        <span className="currency product-price">
+                          {toCurrency(cartObject.product.price * cartObject.quantity)}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="cart-details">
+                  <div className="cart-name">
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      className={`cart-message ${!authenticated && 'cart-message-alert'}`}
+                    >
+                      {authenticated
+                        ? 'Este pedido (sin cobro) se hará a nombre de:'
+                        : 'Debes iniciar sesión para poder hacer un pedido'}
+                    </Typography>
+                    {authenticated && (
+                      <Typography gutterBottom>
+                        {user.firstName} {user.lastName}
+                      </Typography>
+                    )}
+                  </div>
+                  <div className="cart-total">
+                    <ListItemText primary="Total" />
+                    <span className="currency total">
+                      {toCurrency(
+                        cartObjects.reduce<number>(
+                          (sum, object) => sum + object.quantity * object.product.price,
+                          0,
+                        ),
+                      )}
+                    </span>
+                  </div>
+                </div>
+                <Button
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  style={{ display: 'flex', marginLeft: 'auto', marginTop: '50px' }}
+                  onClick={() => handleSendOrder()}
+                  disabled={!authenticated}
+                >
+                  Hacer pedido
+                </Button>
+              </CardContent>
+            ) : (
+              <div className="no-products">
+                <FontAwesomeIcon icon={faExclamationCircle} size="4x" color="#B76E79" />
+                <h2 className="no-products-title">¡No tienes productos seleccionados!</h2>
+                <Link to="/catalog" className="no-products-link">
+                  Ir a catálogo
+                </Link>
+              </div>
+            )}
           </Card>
         </Container>
       </ThemeProvider>

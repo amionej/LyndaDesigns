@@ -95,13 +95,13 @@ const SignUp: React.FC = () => {
                 },
               });
             } catch (e) {
-              console.log(e);
+              // Ignore write errors
             }
           },
         });
       });
     } catch ({ e }) {
-      Swal.fire(`Error`, `Tu cuenta ha sido creada. Causa: ${e}`, 'error');
+      Swal.fire(`Error`, `Tu cuenta no ha sido creada. Causa: ${e}`, 'error');
     }
   };
 

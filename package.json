@@ -27,6 +27,7 @@
     "graphql.macro": "^1.4.2",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
+    "numeral": "^2.0.6",
     "react": "^16.13.0",
     "react-cookies": "^0.1.1",
     "react-device-detect": "^1.11.14",
