@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
         history.push('/login');
       });
     } catch (e) {
-      // Ignore write errors
+      history.push('/login');
     }
   };
 
