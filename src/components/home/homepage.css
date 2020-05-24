@@ -95,3 +95,7 @@
     0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   background-color: rgb(128, 95, 77);
 }
+
+.carousel-container {
+  max-width: 1300px;
+}

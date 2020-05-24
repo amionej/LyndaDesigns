@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LayersIcon from '@material-ui/icons/Layers';
+import { Link } from 'react-router-dom';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -19,31 +20,33 @@ const colorTheme = createMuiTheme({
   },
 });
 
-const handleClick = (link: string) => {
-  window.location.href = link;
-};
-
 const mainListItems = (
   <ThemeProvider theme={colorTheme}>
     <div>
-      <ListItem button onClick={()=>handleClick("/dashboard")}>
-        <ListItemIcon>
-          <DashboardIcon color="secondary"/>
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-      <ListItem button onClick={()=>handleClick("/dashboardorders")}>
-        <ListItemIcon>
-          <ShoppingCartIcon color="secondary"/>
-        </ListItemIcon>
-        <ListItemText primary="Ordenes" />
-      </ListItem>
-      <ListItem button onClick={()=>handleClick("/dashboardproducts")}>
-        <ListItemIcon>
-          <LayersIcon color="secondary"/>
-        </ListItemIcon>
-        <ListItemText primary="Productos" />
-      </ListItem>
+      <Link to="/dashboard">
+        <ListItem button>
+          <ListItemIcon>
+            <DashboardIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
+      </Link>
+      <Link to="/dashboard/orders">
+        <ListItem button>
+          <ListItemIcon>
+            <ShoppingCartIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText primary="Ordenes" />
+        </ListItem>
+      </Link>
+      <Link to="/dashboard/products">
+        <ListItem button>
+          <ListItemIcon>
+            <LayersIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText primary="Productos" />
+        </ListItem>
+      </Link>
     </div>
   </ThemeProvider>
 );

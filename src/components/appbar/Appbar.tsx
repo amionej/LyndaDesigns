@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useHistory, Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -9,11 +9,11 @@ import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { CartState } from '../cart/cart.types';
-import './appbar.css';
 import useAuthenticated from '../../utils/hooks/useAuthenticated';
+import './appbar.css';
 
 const AppBar: React.FC = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

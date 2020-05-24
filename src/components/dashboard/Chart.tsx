@@ -2,7 +2,6 @@ import React from 'react';
 import { createMuiTheme, useTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import Title from './Title';
 
 // Generate Sales Data
 function createData(time, amount) {
@@ -38,7 +37,7 @@ export default function Chart() {
   return (
     <>
       <ThemeProvider theme={colorTheme}>
-        <Title>Hoy</Title>
+        <span>Hoy</span>
         <ResponsiveContainer>
           <LineChart
             data={data}

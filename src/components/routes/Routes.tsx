@@ -19,21 +19,15 @@ import PublicRoute from '../../utils/route_handlers/PublicRoute';
 import FreeRoute from '../../utils/route_handlers/FreeRoute';
 import PrivateRoute from '../../utils/route_handlers/PrivateRoute';
 import Profile from '../profile/Profile';
+import Dashboard from '../dashboard/Dashboard';
+import DashboardOrders from '../dashboard/DashboardOrders';
+import DashboardProducts from '../dashboard/DashboardProducts';
+import AppDrawer from '../drawer/Drawer';
 import './transition.css';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    content: {
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '85vh',
-    },
-  }),
-);
+import './routes.css';
 
 const Routes: React.FC = () => {
-  const classes = useStyles();
-
+  const { innerWidth: width } = window;
   const location = useLocation();
 
   return (
@@ -44,7 +38,8 @@ const Routes: React.FC = () => {
             <Apollo>
               <AuthProvider>
                 <Appbar />
-                <main className={classes.content}>
+                <main className={width > 800 ? 'app-content desktop' : 'app-content mobile'}>
+                  {width > 1000 && <AppDrawer />}
                   <Switch location={location}>
                     <FreeRoute exact path="/" component={Homepage} />
                     <FreeRoute exact path="/catalog" component={Catalog} />
@@ -53,6 +48,9 @@ const Routes: React.FC = () => {
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/signup" component={SignUp} />
                     <PrivateRoute exact path="/profile" component={Profile} />
+                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                    <PrivateRoute exact path="/dashboard/orders" component={DashboardOrders} />
+                    <PrivateRoute exact path="/dashboard/products" component={DashboardProducts} />
                   </Switch>
                 </main>
                 <Footer />

@@ -14,11 +14,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Modal from 'react-modal';
 import { ThemeProvider } from '@material-ui/styles';
-import './catalog.css';
+import '../catalog/catalog.css';
 import { useQuery } from '@apollo/react-hooks';
-import GET_PRODUCTS from './catalog.queries';
+import GET_PRODUCTS from '../catalog/catalog.queries';
 import Loading from '../../utils/spinner/Loading';
-import { Product } from './catalog.types';
+import { Product } from '../catalog/catalog.types';
 import QuantityButtons from '../../utils/quantity-buttons/QuantityButtons';
 import { addProductToCart } from '../cart/cart.actions';
 import { CartState } from '../cart/cart.types';
@@ -31,7 +31,7 @@ const colorTheme = createMuiTheme({
   },
 });
 
-const Catalog: React.FC = () => {
+const DashboardProducts: React.FC = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>(null);
   const [quantity, setQuantity] = useState(1);
@@ -64,10 +64,10 @@ const Catalog: React.FC = () => {
                 className="paperColor"
                 gutterBottom
               >
-                Catálogo
+                Panel de Productos
               </Typography>
               <Typography variant="h5" align="center" className="paperColor" paragraph>
-                ¡Vea todos nuestros diseños y escoja su favorito!
+                Crea, elimina o edita productos
               </Typography>
             </Container>
           </div>
@@ -178,4 +178,4 @@ const Catalog: React.FC = () => {
   );
 };
 
-export default Catalog;
+export default DashboardProducts;

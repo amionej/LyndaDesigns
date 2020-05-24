@@ -7,7 +7,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
 
 // Generate Order Data
 function createData(
@@ -51,7 +50,7 @@ export default function Orders() {
   return (
     <>
       <ThemeProvider theme={colorTheme}>
-        <Title>Ordenes Recientes</Title>
+        <span>Ordenes Recientes</span>
         <Table size="small">
           <TableHead>
             <TableRow>

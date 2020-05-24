@@ -1,0 +1,14 @@
+.app-content {
+  display: flex;
+  min-height: 85vh;
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.mobile {
+  flex-direction: column;
+}
+
+.desktop {
+  flex-direction: row;
+}
