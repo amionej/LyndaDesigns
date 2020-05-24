@@ -5,5 +5,5 @@ export interface User {
   email: String;
   isStaff: Boolean;
   isSuperuser: Boolean;
-  lastLogin: Date;
+  lastLogin: String;
 }

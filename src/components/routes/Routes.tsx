@@ -17,6 +17,8 @@ import Appbar from '../appbar/Appbar';
 import Footer from '../footer/Footer';
 import PublicRoute from '../../utils/route_handlers/PublicRoute';
 import FreeRoute from '../../utils/route_handlers/FreeRoute';
+import PrivateRoute from '../../utils/route_handlers/PrivateRoute';
+import Profile from '../profile/Profile';
 import './transition.css';
 
 const useStyles = makeStyles(() =>
@@ -50,6 +52,7 @@ const Routes: React.FC = () => {
                     <FreeRoute exact path="/cart" component={Cart} />
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/signup" component={SignUp} />
+                    <PrivateRoute exact path="/profile" component={Profile} />
                   </Switch>
                 </main>
                 <Footer />

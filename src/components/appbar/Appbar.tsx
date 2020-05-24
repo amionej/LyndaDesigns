@@ -66,7 +66,7 @@ const AppBar: React.FC = () => {
             <span className="cart-objects-badge">{cartObjects.length}</span>
           </div>
           {authenticated ? (
-            <Link to="/perfil" className="profile-link">
+            <Link to="/profile" className="profile-link">
               {`${user.firstName[0]}${user.lastName[0]}`}
             </Link>
           ) : (

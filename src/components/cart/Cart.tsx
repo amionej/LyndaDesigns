@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { useMutation } from '@apollo/react-hooks';
-import LOGOUT from '../auth/auth.mutations';
 import { CartState, CartObject } from './cart.types';
 import toCurrency from '../../utils/currency/currency';
 import './cart.css';
@@ -37,7 +36,6 @@ const colorTheme = createMuiTheme({
 });
 
 const Cart: React.FC = () => {
-  const [Logout, { client }] = useMutation(LOGOUT);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -66,16 +64,8 @@ const Cart: React.FC = () => {
               type: getType(clearCart),
             });
           },
-          onClose: async () => {
-            try {
-              await Logout().then(() => {
-                client.resetStore();
-                // history.go(0);
-                history.push('/login');
-              });
-            } catch (e) {
-              // Ignore write errors
-            }
+          onClose: () => {
+            history.push('/profile');
           },
         });
       });

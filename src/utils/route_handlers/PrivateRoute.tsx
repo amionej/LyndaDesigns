@@ -22,7 +22,7 @@ const PrivateRoute: React.FC<Props> = (props: Props) => {
     return (
       <Redirect
         to={{
-          pathname: '/iniciar-sesion',
+          pathname: '/login',
           state: {
             redirect: routeProps.location.pathname,
           },
