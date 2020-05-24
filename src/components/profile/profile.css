@@ -119,6 +119,10 @@
   text-align: start;
 }
 
+.order-list-item:hover {
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.24);
+}
+
 .list-item-title {
   font-weight: 600;
 }
