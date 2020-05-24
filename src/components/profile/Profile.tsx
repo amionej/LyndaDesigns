@@ -71,7 +71,7 @@ const Profile: React.FC = () => {
               </button>
             </div>
             <div className="user-orders">
-              <h3>Historial de órdenes</h3>
+              <h3 className="history-title">Historial de órdenes</h3>
               <div className="order-list">
                 {orders.map((order: Order) => {
                   return (
@@ -83,8 +83,14 @@ const Profile: React.FC = () => {
                         {order.orderitemSet.map((ot: OrderItem) => {
                           return (
                             <div className="order-item">
-                              <span>Producto: {ot.productName}</span>
-                              <span>Cantidad: {ot.quantity}</span>
+                              <div className="order-item-product">
+                                <span>Producto: </span>
+                                <span>{ot.productName}</span>
+                              </div>
+                              <div className="order-item-quantity">
+                                <span>Cantidad: </span>
+                                <span>{ot.quantity}</span>
+                              </div>
                             </div>
                           );
                         })}

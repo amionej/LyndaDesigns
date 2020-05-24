@@ -8,12 +8,32 @@
   letter-spacing: 0.02857em;
   height: 500px;
 }
+@media (min-width: 0) and (max-width: 768px) {
+  .user-card {
+    flex-direction: column;
+    height: 150vh;
+  }
+}
+
 .user-info {
   display: flex;
   flex-direction: column;
   width: 30%;
   border-right: 2px solid rgb(231, 230, 230);
+  border-bottom: 0px;
 }
+
+@media (min-width: 0) and (max-width: 768px) {
+  .user-info {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    border-right: 0px;
+    border-bottom: 2px solid rgb(231, 230, 230);
+    padding-bottom: 20px;
+  }
+}
+
 .user-name {
   font-size: 23px;
   color: #b76e79;
@@ -59,6 +79,25 @@
 .user-orders {
   padding-left: 2rem;
   width: 70%;
+  overflow: scroll;
+}
+
+@media (min-width: 0) and (max-width: 768px) {
+  .history-title {
+    text-align: center;
+  }
+  .user-orders {
+    padding-left: 0;
+    width: 100%;
+  }
+  .order-item-product {
+    display: flex;
+    flex-direction: column;
+  }
+  .order-item-quantity {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .order-list {
