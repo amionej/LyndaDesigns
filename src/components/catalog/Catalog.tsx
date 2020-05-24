@@ -125,6 +125,7 @@ const Catalog: React.FC = () => {
         {selectedProduct && (
           <Modal
             isOpen={modalIsOpen}
+            ariaHideApp={false}
             onRequestClose={() => {
               closeModal();
             }}

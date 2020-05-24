@@ -15,14 +15,6 @@ import './homepage.css';
 import useAuthenticated from '../../utils/hooks/useAuthenticated';
 
 const useStyles = makeStyles(theme => ({
-  heroContent: {
-    backgroundColor: '#B76E79',
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-    lineHeight: 2.5,
-  },
   images: {
     textAlign: 'center',
     paddingTop: theme.spacing(8),
@@ -66,19 +58,19 @@ const colorTheme = createMuiTheme({
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 1,
+    breakpoint: { max: 4000, min: 1200 },
+    items: 4,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
+    breakpoint: { max: 1199, min: 900 },
+    items: 3,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
+    breakpoint: { max: 899, min: 651 },
+    items: 2,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 650, min: 0 },
     items: 1,
   },
 };
@@ -92,134 +84,61 @@ const HomePage: React.FC = () => {
     <>
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
-        <div className={classes.heroContent}>
+        <div className="hero-content">
           <Container>
-            <Carousel responsive={responsive} autoPlay infinite focusOnSelect centerMode>
+            <Carousel
+              responsive={responsive}
+              autoPlay={false}
+              infinite
+              partialVisible={false}
+              focusOnSelect
+              itemClass="carousel-item"
+            >
               {authenticated && (
-                <div>
-                  <Typography
-                    component="h1"
-                    variant="h2"
-                    align="center"
-                    className={classes.paperColor}
-                    gutterBottom
-                  >
-                    Bonito día, {user.firstName}.
-                  </Typography>
-                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                    ¡Nos da gusto que estés de vuelta!
-                  </Typography>
+                <div className="carousel-div-item">
+                  <span className="carousel-item-title">Bonito día, {user.firstName}.</span>
+                  <span className="carousel-item-desc">¡Nos da gusto que estés de vuelta!</span>
                 </div>
               )}
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Lynda Designs
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+              <div className="carousel-div-item">
+                <span className="carousel-item-title">Lynda Designs</span>
+                <span className="carousel-item-desc">
                   Cumpleaños, aniversarios, graduaciones y más.
-                </Typography>
+                </span>
               </div>
               {!authenticated && (
-                <div>
-                  <Typography
-                    component="h1"
-                    variant="h2"
-                    align="center"
-                    className={classes.paperColor}
-                    gutterBottom
-                  >
-                    Crea una cuenta
-                  </Typography>
-                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                    Así podrás hacer pedidos.
-                  </Typography>
-                  <div className={classes.heroButtons}>
-                    <Grid container spacing={2} justify="center">
-                      <Grid item>
-                        <Link to="/signup" className="carousel-link">
-                          Registrarme
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  </div>
+                <div className="carousel-div-item">
+                  <span className="carousel-item-title">Crea una cuenta</span>
+                  <span className="carousel-item-desc">Así podrás hacer pedidos.</span>
+                  <Link to="/signup" className="carousel-link">
+                    Registrarme
+                  </Link>
                 </div>
               )}
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  Nuestro catálogo.
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                  Escoge tu preferido.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Link to="/catalog" className="carousel-link">
-                        Catálogo
-                      </Link>
-                    </Grid>
-                  </Grid>
-                </div>
+              <div className="carousel-div-item">
+                <span className="carousel-item-title">Nuestro catálogo</span>
+                <span className="carousel-item-desc">Escoge tu preferido.</span>
+                <Link to="/catalog" className="carousel-link">
+                  Catálogo
+                </Link>
               </div>
               {!authenticated && (
-                <div>
-                  <Typography
-                    component="h1"
-                    variant="h2"
-                    align="center"
-                    className={classes.paperColor}
-                    gutterBottom
-                  >
-                    Inicia Sesión
-                  </Typography>
-                  <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
-                    Haz tu pedidos ahora.
-                  </Typography>
-                  <div className={classes.heroButtons}>
-                    <Grid container spacing={2} justify="center">
-                      <Grid item>
-                        <Link to="/login" className="carousel-link">
-                          Iniciar Sesion
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  </div>
+                <div className="carousel-div-item">
+                  <span className="carousel-item-title">Inicia Sesión</span>
+                  <span className="carousel-item-desc">Haz tu pedidos ahora.</span>
+                  <Link to="/login" className="carousel-link">
+                    Iniciar Sesion
+                  </Link>
                 </div>
               )}
-              <div>
-                <Typography
-                  component="h1"
-                  variant="h2"
-                  align="center"
-                  className={classes.paperColor}
-                  gutterBottom
-                >
-                  ¿Intrigado?
-                </Typography>
-                <Typography variant="h5" align="center" className={classes.paperColor} paragraph>
+              <div className="carousel-div-item">
+                <span className="carousel-item-title">¿Intrigado?</span>
+                <span className="carousel-item-desc">
                   Contáctanos para cualquier duda que tengas.
-                </Typography>
-                <div className={classes.heroButtons}>
-                  <Grid container spacing={2} justify="center">
-                    <Grid item>
-                      <Link to="/contact" className="carousel-link">
-                        Contacto
-                      </Link>
-                    </Grid>
-                  </Grid>
-                </div>
+                </span>
+                <Link to="/contact" className="carousel-link">
+                  Contacto
+                </Link>
               </div>
             </Carousel>
           </Container>

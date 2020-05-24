@@ -8,17 +8,6 @@ import {
 } from './cart.actions';
 import { CartObject, CartState } from './cart.types';
 
-// export const getProductIdArray = () => {
-//   const list = [];
-//   for (let i = 0; i < state.cartReducer.cartObjects.length; i += 1) {
-//     list.push({
-//       product_id: String(state.cartReducer.cartObjects[i].product.id),
-//       quantity: String(state.cartReducer.cartObjects[i].quantity),
-//     });
-//   }
-//   return list;
-// };
-
 const INITIAL_STATE: CartState = {
   cartObjects: [],
 };

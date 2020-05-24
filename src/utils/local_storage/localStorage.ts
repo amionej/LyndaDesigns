@@ -3,8 +3,9 @@ import { CartObject } from '../../components/cart/cart.types';
 export const loadState = () => {
   try {
     const serializedCartState = localStorage.getItem('cartObjects');
-    if (serializedCartState === undefined) {
-      return undefined;
+
+    if (!serializedCartState) {
+      return { cartObjects: [] };
     }
 
     const cart = JSON.parse(serializedCartState);
@@ -12,7 +13,7 @@ export const loadState = () => {
 
     return initialState;
   } catch (err) {
-    return undefined;
+    return { cartObjects: [] };
   }
 };
 

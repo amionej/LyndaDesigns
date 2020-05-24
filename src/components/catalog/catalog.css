@@ -16,7 +16,10 @@
 
 .ReactModal__Content {
   position: fixed;
-  inset: 10% 10% auto !important;
+  top: 10% !important;
+  right: 10% !important;
+  bottom: auto !important;
+  left: 10% !important;
   border: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255) none repeat scroll 0% 0%;
   overflow: auto;
@@ -29,13 +32,19 @@
 
 @media (min-width: 500px) {
   .ReactModal__Content {
-    inset: 10% 25% auto !important;
+    top: 10% !important;
+    right: 25% !important;
+    bottom: auto !important;
+    left: 25% !important;
   }
 }
 
 @media (min-width: 768px) {
   .ReactModal__Content {
-    inset: 10% 35% auto !important;
+    top: 10% !important;
+    right: 35% !important;
+    bottom: auto !important;
+    left: 35% !important;
   }
 }
 

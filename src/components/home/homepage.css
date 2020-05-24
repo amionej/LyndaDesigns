@@ -1,3 +1,72 @@
+.hero-content {
+  padding: 64px 0px 48px;
+}
+
+.carousel-item {
+  border-radius: 3rem;
+  padding: 15px 20px;
+  height: 450px;
+}
+
+.react-multiple-carousel__arrow--right {
+  right: 0;
+}
+
+.react-multiple-carousel__arrow--left {
+  left: 0;
+}
+
+@media (max-width: 650px) {
+  .carousel-item {
+    height: 350px;
+    padding: 0 50px;
+  }
+}
+@media (max-width: 899px) and (min-width: 651px) {
+  .carousel-item {
+    height: 400px;
+  }
+}
+
+.carousel-div-item {
+  background-color: #b76e79;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: -10px 6px 10px 0 rgba(0, 0, 0, 0.24);
+}
+
+.carousel-div-item:hover {
+  box-shadow: -13px 10px 10px -4px rgba(0, 0, 0, 0.349);
+}
+
+.carousel-item-title {
+  margin: 2rem 0 1rem 1rem;
+  text-align: center;
+  justify-self: flex-start;
+  color: white;
+  font-size: 2.75rem;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+}
+
+.carousel-item-desc {
+  margin-top: 2rem;
+  text-align: center;
+  color: white;
+  margin-top: auto;
+  margin-bottom: 5rem;
+  font-size: 1.5rem;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+}
+
 .carousel-link {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87);
@@ -16,6 +85,10 @@
   border-radius: 4px;
   letter-spacing: 0.02857em;
   text-transform: uppercase;
+  align-self: center;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 3rem;
 }
 .carousel-link:hover {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
