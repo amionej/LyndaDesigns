@@ -6,14 +6,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Button } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import useAuthenticated from '../../../utils/hooks/useAuthenticated';
-import { Order, OrderItem } from '../../profile/profile.types';
+import { OrderItem } from '../../profile/profile.types';
 import toCurrency from '../../../utils/currency/currency';
 import ALL_ORDERS from '../dashboard.queries';
 import './dashboard-orders.css';
 import { DashboardOrder } from './dashboard-orders.types';
-import { Button } from '@material-ui/core';
+import UPDATE_ORDER from '../dashboard.mutations';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -37,6 +38,14 @@ const Profile: React.FC = () => {
   });
 
   const orders: DashboardOrder[] = data ? data.allOrders : [];
+
+  const [updateOrder] = useMutation(UPDATE_ORDER, {
+    refetchQueries: [
+      {
+        query: ALL_ORDERS,
+      },
+    ],
+  });
 
   return (
     <>
@@ -74,17 +83,40 @@ const Profile: React.FC = () => {
                         })}
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span>Status: {order.status}</span>
-                        {order.status === 'NOTPAID' && (
-                          <Button
-                            size="small"
-                            color="secondary"
-                            // onClick={() => {
-                            // }}
+                        <span>
+                          Status:{' '}
+                          <span
+                            className={order.status === 'NOTPAID' ? 'bad-status' : 'good-status'}
                           >
-                            CAMBIAR A PAGADA
-                          </Button>
-                        )}
+                            {order.status === 'NOTPAID' ? 'NO PAGADA' : 'PAGADA'}
+                          </span>
+                        </span>
+                        <Button
+                          style={{
+                            color: 'white',
+                            backgroundColor: '#b7886e',
+                            fontWeight: 'bold',
+                          }}
+                          size="small"
+                          onClick={async () => {
+                            try {
+                              await updateOrder({
+                                variables: {
+                                  id: order.id,
+                                  status: order.status === 'PAID' ? 'NOTPAID' : 'PAID',
+                                },
+                              }).then(() => {});
+                            } catch ({ e }) {
+                              Swal.fire(
+                                `Error`,
+                                `La orden no ha podido ser cambiada. Causa: ${e}`,
+                                'error',
+                              );
+                            }
+                          }}
+                        >
+                          {order.status === 'PAID' ? 'CAMBIAR A NO PAGADA' : 'CAMBIAR A PAGADA'}
+                        </Button>
                         <span className="dashboard-list-item-total">
                           Total: {toCurrency(order.total)}
                         </span>
