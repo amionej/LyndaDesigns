@@ -3,7 +3,6 @@ import { Switch, useLocation } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import '../../css/App.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import store from '../redux-store';
 import Apollo from '../../api/ApolloClient';
 import Homepage from '../home/HomePage';
@@ -19,9 +18,8 @@ import PublicRoute from '../../utils/route_handlers/PublicRoute';
 import FreeRoute from '../../utils/route_handlers/FreeRoute';
 import PrivateRoute from '../../utils/route_handlers/PrivateRoute';
 import Profile from '../profile/Profile';
-import Dashboard from '../dashboard/Dashboard';
-import DashboardOrders from '../dashboard/DashboardOrders';
-import DashboardProducts from '../dashboard/DashboardProducts';
+import DashboardOrders from '../dashboard/dashboard-orders/DashboardOrders';
+import DashboardProducts from '../dashboard/dashboard-products/DashboardProducts';
 import AppDrawer from '../drawer/Drawer';
 import './transition.css';
 import './routes.css';
@@ -48,9 +46,8 @@ const Routes: React.FC = () => {
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/signup" component={SignUp} />
                     <PrivateRoute exact path="/profile" component={Profile} />
-                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                    <PrivateRoute exact path="/dashboard/orders" component={DashboardOrders} />
-                    <PrivateRoute exact path="/dashboard/products" component={DashboardProducts} />
+                    <PrivateRoute exact path="/dashboard-orders" component={DashboardOrders} />
+                    <PrivateRoute exact path="/dashboard-products" component={DashboardProducts} />
                   </Switch>
                 </main>
                 <Footer />

@@ -6,7 +6,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LayersIcon from '@material-ui/icons/Layers';
 import { Link } from 'react-router-dom';
 
 const colorTheme = createMuiTheme({
@@ -23,15 +22,7 @@ const colorTheme = createMuiTheme({
 const mainListItems = (
   <ThemeProvider theme={colorTheme}>
     <div>
-      <Link to="/dashboard">
-        <ListItem button>
-          <ListItemIcon>
-            <DashboardIcon color="secondary" />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-      </Link>
-      <Link to="/dashboard/orders">
+      <Link to="/dashboard-orders" style={{ textDecoration: 'none', color: 'black' }}>
         <ListItem button>
           <ListItemIcon>
             <ShoppingCartIcon color="secondary" />
@@ -39,10 +30,10 @@ const mainListItems = (
           <ListItemText primary="Ordenes" />
         </ListItem>
       </Link>
-      <Link to="/dashboard/products">
+      <Link to="/dashboard-products" style={{ textDecoration: 'none', color: 'black' }}>
         <ListItem button>
           <ListItemIcon>
-            <LayersIcon color="secondary" />
+            <DashboardIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="Productos" />
         </ListItem>

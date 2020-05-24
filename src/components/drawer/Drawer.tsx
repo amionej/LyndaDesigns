@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { IconButton, Drawer, List, Divider } from '@material-ui/core';
-import mainListItems from '../dashboard/listItems';
+import mainListItems from './ListItems';
 import './drawer.css';
 
 const AppDrawer: React.FC = () => {

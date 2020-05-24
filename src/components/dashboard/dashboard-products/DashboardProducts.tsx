@@ -14,14 +14,14 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Modal from 'react-modal';
 import { ThemeProvider } from '@material-ui/styles';
-import '../catalog/catalog.css';
+import '../../catalog/catalog.css';
 import { useQuery } from '@apollo/react-hooks';
-import GET_PRODUCTS from '../catalog/catalog.queries';
-import Loading from '../../utils/spinner/Loading';
-import { Product } from '../catalog/catalog.types';
-import QuantityButtons from '../../utils/quantity-buttons/QuantityButtons';
-import { addProductToCart } from '../cart/cart.actions';
-import { CartState } from '../cart/cart.types';
+import GET_PRODUCTS from '../../catalog/catalog.queries';
+import Loading from '../../../utils/spinner/Loading';
+import { Product } from '../../catalog/catalog.types';
+import QuantityButtons from '../../../utils/quantity-buttons/QuantityButtons';
+import { addProductToCart } from '../../cart/cart.actions';
+import { CartState } from '../../cart/cart.types';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -55,23 +55,6 @@ const DashboardProducts: React.FC = () => {
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          <div className="heroContent">
-            <Container maxWidth="sm">
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                className="paperColor"
-                gutterBottom
-              >
-                Panel de Productos
-              </Typography>
-              <Typography variant="h5" align="center" className="paperColor" paragraph>
-                Crea, elimina o edita productos
-              </Typography>
-            </Container>
-          </div>
-
           {loading ? (
             <Loading />
           ) : (
