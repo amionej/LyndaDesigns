@@ -109,6 +109,7 @@ const DashboardProducts: React.FC = () => {
                             {file ? file.name : 'Selecciona una imagen'}
                             <input
                               type="file"
+                              accept="image/jpeg, image/png, image/jpg"
                               style={{ display: 'none' }}
                               onChange={e => {
                                 setFile(e.target.files[0]);
