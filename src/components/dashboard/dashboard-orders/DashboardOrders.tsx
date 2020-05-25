@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,13 +7,12 @@ import { ThemeProvider } from '@material-ui/styles';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Button } from '@material-ui/core';
 import Swal from 'sweetalert2';
-import useAuthenticated from '../../../utils/hooks/useAuthenticated';
 import { OrderItem } from '../../profile/profile.types';
 import toCurrency from '../../../utils/currency/currency';
 import ALL_ORDERS from '../dashboard.queries';
 import './dashboard-orders.css';
 import { DashboardOrder } from './dashboard-orders.types';
-import UPDATE_ORDER from '../dashboard.mutations';
+import { UPDATE_ORDER } from '../dashboard.mutations';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -28,8 +26,6 @@ const colorTheme = createMuiTheme({
 });
 
 const Profile: React.FC = () => {
-  const { user } = useAuthenticated();
-
   const { data } = useQuery(ALL_ORDERS, {
     fetchPolicy: 'cache-and-network',
     onError: () => {

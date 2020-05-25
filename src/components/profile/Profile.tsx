@@ -62,10 +62,12 @@ const Profile: React.FC = () => {
                 <span className="info-title">Correo electrónico:</span>
                 <span>{user.email}</span>
               </div>
-              <div className="user-rest">
-                <span className="info-title">Última sesión:</span>
-                <span>{user.lastLogin.slice(0, 10)}</span>
-              </div>
+              {user.lastLogin && (
+                <div className="user-rest">
+                  <span className="info-title">Última sesión:</span>
+                  <span>{user.lastLogin.slice(0, 10)}</span>
+                </div>
+              )}
               <button type="button" className="logout-button" onClick={() => handleLogout()}>
                 Logout
               </button>

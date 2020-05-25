@@ -82,7 +82,7 @@ const Catalog: React.FC = () => {
                     <Card className="card">
                       <CardMedia
                         className="cardMedia"
-                        image={`http://127.0.0.1:8000/media/${p.image.image}`}
+                        image={`http://127.0.0.1:8000/media/${p.image?.image}`}
                         title={p.productName}
                         style={{ cursor: 'pointer' }}
                         onClick={() => {
@@ -136,7 +136,7 @@ const Catalog: React.FC = () => {
               <Container maxWidth="md">
                 <CardMedia
                   className="cardMedia"
-                  image={`http://127.0.0.1:8000/media/${selectedProduct.image.image}`}
+                  image={`http://127.0.0.1:8000/media/${selectedProduct.image?.image}`}
                   title={selectedProduct.description}
                 />
                 <CardContent

@@ -21,6 +21,7 @@ import Profile from '../profile/Profile';
 import DashboardOrders from '../dashboard/dashboard-orders/DashboardOrders';
 import DashboardProducts from '../dashboard/dashboard-products/DashboardProducts';
 import AppDrawer from '../drawer/Drawer';
+import CreateProduct from '../dashboard/dashboard-products/create-product/CreateProduct';
 import './transition.css';
 import './routes.css';
 
@@ -48,6 +49,7 @@ const Routes: React.FC = () => {
                     <PrivateRoute exact path="/profile" component={Profile} />
                     <PrivateRoute exact path="/dashboard-orders" component={DashboardOrders} />
                     <PrivateRoute exact path="/dashboard-products" component={DashboardProducts} />
+                    <PrivateRoute exact path="/create-product" component={CreateProduct} />
                   </Switch>
                 </main>
                 <Footer />

@@ -15,6 +15,8 @@ import './appbar.css';
 const AppBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const { innerWidth: width } = window;
+
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,28 +35,32 @@ const AppBar: React.FC = () => {
   return (
     <MUIAppBar position="static">
       <Toolbar>
-        <IconButton className="menu-but" aria-label="Menu" onClick={handleMenuClick}>
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          <div className="menu-link-encloser">
-            <Link to="/" className="menu-link">
-              Página Principal
-            </Link>
-            <Link to="/catalog" className="menu-link">
-              Catálogo
-            </Link>
-            <Link to="/contact" className="menu-link">
-              Contacto
-            </Link>
-          </div>
-        </Menu>
+        {width <= 1000 && (
+          <>
+            <IconButton className="menu-but" aria-label="Menu" onClick={handleMenuClick}>
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <div className="menu-link-encloser">
+                <Link to="/" className="menu-link">
+                  Página Principal
+                </Link>
+                <Link to="/catalog" className="menu-link">
+                  Catálogo
+                </Link>
+                <Link to="/contact" className="menu-link">
+                  Contacto
+                </Link>
+              </div>
+            </Menu>
+          </>
+        )}
         <Typography variant="h6" color="textPrimary">
           LyndaLogo
         </Typography>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getType } from 'typesafe-actions';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -12,16 +11,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Modal from 'react-modal';
 import { ThemeProvider } from '@material-ui/styles';
-import '../../catalog/catalog.css';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import GET_PRODUCTS from '../../catalog/catalog.queries';
 import Loading from '../../../utils/spinner/Loading';
 import { Product } from '../../catalog/catalog.types';
-import QuantityButtons from '../../../utils/quantity-buttons/QuantityButtons';
-import { addProductToCart } from '../../cart/cart.actions';
-import { CartState } from '../../cart/cart.types';
+import '../../catalog/catalog.css';
+import { UPDATE_PRODUCT, DELETE_PRODUCT, UPLOAD_IMAGE } from '../dashboard.mutations';
 
 const colorTheme = createMuiTheme({
   palette: {
@@ -32,29 +28,55 @@ const colorTheme = createMuiTheme({
 });
 
 const DashboardProducts: React.FC = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product>(null);
-  const [quantity, setQuantity] = useState(1);
-
+  const [file, setFile] = useState<File>(null);
   const { data, loading } = useQuery(GET_PRODUCTS, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
 
   const products = data ? data.allProducts : [];
 
-  const dispatch = useDispatch();
+  const [updateProduct] = useMutation(UPDATE_PRODUCT, {
+    refetchQueries: [
+      {
+        query: GET_PRODUCTS,
+      },
+    ],
+  });
 
-  const cartObjects = useSelector((state: CartState) => state.cartObjects);
+  const [deleteProduct] = useMutation(DELETE_PRODUCT, {
+    refetchQueries: [
+      {
+        query: GET_PRODUCTS,
+      },
+    ],
+  });
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const [uploadProductImage] = useMutation(UPLOAD_IMAGE, {
+    refetchQueries: [
+      {
+        query: GET_PRODUCTS,
+      },
+    ],
+  });
 
   return (
     <>
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+          <Link style={{ alignSelf: 'center', marginTop: '4rem' }} to="/create-product">
+            <Button
+              size="large"
+              style={{
+                color: 'white',
+                backgroundColor: '#b7886e',
+                fontWeight: 'bold',
+              }}
+            >
+              CREAR UN NUEVO PRODUCTO
+            </Button>
+          </Link>
+
           {loading ? (
             <Loading />
           ) : (
@@ -63,17 +85,64 @@ const DashboardProducts: React.FC = () => {
                 {products.map((p: Product) => (
                   <Grid item key={p.id} xs={12} sm={6} md={4}>
                     <Card className="card">
-                      <CardMedia
-                        className="cardMedia"
-                        image={`http://127.0.0.1:8000/media/${p.image.image}`}
-                        title={p.productName}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                          setQuantity(1);
-                          setSelectedProduct(p);
-                          setIsOpen(true);
-                        }}
-                      />
+                      {p.image?.image ? (
+                        <CardMedia
+                          className="cardMedia"
+                          image={`http://127.0.0.1:8000/media/${p.image.image}`}
+                          title={p.productName}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            height: '45%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-evenly',
+                            padding: '0 5px',
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            component="label"
+                            style={{ backgroundColor: 'grey', color: 'white' }}
+                          >
+                            {file ? file.name : 'Selecciona una imagen'}
+                            <input
+                              type="file"
+                              style={{ display: 'none' }}
+                              onChange={e => {
+                                setFile(e.target.files[0]);
+                              }}
+                            />
+                          </Button>
+                          <Button
+                            disabled={!file}
+                            variant="contained"
+                            component="label"
+                            style={
+                              file
+                                ? { backgroundColor: '#B76E79', color: 'white' }
+                                : { backgroundColor: 'rgba(235, 206, 211, 0.979)', color: 'white' }
+                            }
+                            onClick={async () => {
+                              try {
+                                await uploadProductImage({
+                                  variables: {
+                                    id: p.id,
+                                    image: file,
+                                  },
+                                }).then(() => {
+                                  console.log('SIMON');
+                                });
+                              } catch ({ e }) {
+                                // Ignore write errors
+                              }
+                            }}
+                          >
+                            Súbela
+                          </Button>
+                        </div>
+                      )}
                       <CardContent className="cardContent">
                         <Typography gutterBottom variant="h5" component="h2">
                           {p.productName}
@@ -82,78 +151,54 @@ const DashboardProducts: React.FC = () => {
                       </CardContent>
                       <CardActions>
                         <Button
-                          disabled={!p.status || cartObjects.some(c => c.product.id === p.id)}
                           size="small"
                           color="primary"
-                          onClick={() => {
-                            setQuantity(1);
-                            setSelectedProduct(p);
-                            setIsOpen(true);
+                          onClick={async () => {
+                            try {
+                              await updateProduct({
+                                variables: {
+                                  id: p.id,
+                                  status: !p.status,
+                                },
+                              }).then(() => {});
+                            } catch ({ e }) {
+                              Swal.fire(
+                                `Error`,
+                                `El producto no ha podido ser cambiado. Causa: ${e}`,
+                                'error',
+                              );
+                            }
                           }}
                         >
-                          {cartObjects.some(c => c.product.id === p.id)
-                            ? 'Producto en carrito'
-                            : 'Seleccionar'}
+                          {p.status ? 'Marcar NO disponible' : 'Marcar disponible'}
                         </Button>
-                        <span className={`action-btns ${p.status ? 'available' : 'unavailable'}`}>
-                          {p.status ? 'Disponible' : 'Agotado'}
-                        </span>
+                        <Button
+                          size="small"
+                          color="secondary"
+                          onClick={async () => {
+                            try {
+                              await deleteProduct({
+                                variables: {
+                                  id: p.id,
+                                },
+                              }).then(() => {});
+                            } catch ({ e }) {
+                              Swal.fire(
+                                `Error`,
+                                `El producto no ha podido ser borrado. Causa: ${e}`,
+                                'error',
+                              );
+                            }
+                          }}
+                        >
+                          Borrar
+                        </Button>
                       </CardActions>
                     </Card>
                   </Grid>
                 ))}
               </Grid>
             </Container>
-          )}
-
-          {selectedProduct && (
-            <Modal
-              isOpen={modalIsOpen}
-              ariaHideApp={false}
-              onRequestClose={() => {
-                closeModal();
-              }}
-              closeTimeoutMS={200}
-              contentLabel="Example Modal"
-            >
-              <Container maxWidth="md">
-                <CardMedia
-                  className="cardMedia"
-                  image={`http://127.0.0.1:8000/media/${selectedProduct.image.image}`}
-                  title={selectedProduct.description}
-                />
-                <CardContent
-                  className="cardContent"
-                  style={{ textAlign: 'center', borderBottom: '1px solid #B76E79' }}
-                >
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {selectedProduct.productName}
-                  </Typography>
-                  <Typography>{selectedProduct.description}</Typography>
-                </CardContent>
-                <div className="modal-actions">
-                  <span>¿Cuántos quieres?</span>
-                  <QuantityButtons quantity={quantity} setQuantity={setQuantity} />
-                  <Button
-                    color="primary"
-                    style={{ paddingTop: '1rem', fontSize: '1rem' }}
-                    onClick={() => {
-                      dispatch({
-                        type: getType(addProductToCart),
-                        payload: {
-                          product: selectedProduct,
-                          quantity,
-                        },
-                      });
-                      Swal.fire(`¡Exito!`, 'Producto agregado a carrito', 'success');
-                      closeModal();
-                    }}
-                  >
-                    Agregar a carrito
-                  </Button>
-                </div>
-              </Container>
-            </Modal>
           )}
         </div>
       </ThemeProvider>

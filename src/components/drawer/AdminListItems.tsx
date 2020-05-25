@@ -19,7 +19,7 @@ const colorTheme = createMuiTheme({
   },
 });
 
-const mainListItems = (
+const AdminListItems = (
   <ThemeProvider theme={colorTheme}>
     <div>
       <Link to="/dashboard-orders" style={{ textDecoration: 'none', color: 'black' }}>
@@ -42,4 +42,4 @@ const mainListItems = (
   </ThemeProvider>
 );
 
-export default mainListItems;
+export default AdminListItems;
