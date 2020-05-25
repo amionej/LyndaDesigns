@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,13 +17,14 @@ const useStyles = makeStyles(theme => ({
   ContactPage: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: "center",
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: "center",
+    width:'50%'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -34,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    float: "right",
   },
   avatarRow: {
     display: 'flex',
@@ -61,12 +63,14 @@ const colorTheme = createMuiTheme({
   },
 });
 
-function handleSendMail(fName, lName, email, message) {
-  console.log(fName, lName, email, message);
-  Swal.fire(`¡Gracias, ${fName} ${lName}!`, 'Tu mensaje ha sido enviado.', 'success');
+function handleSendMail(fName, lName, email, message, history) {
+  Swal.fire(`¡Gracias, ${fName} ${lName}!`, 'Tu mensaje ha sido enviado.', 'success').then(() => {
+    history.push('/');
+  });
 }
 
 const Contact: React.FC = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
@@ -77,7 +81,7 @@ const Contact: React.FC = () => {
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
         <div className={classes.paper}>
-          <div className={classes.avatarRow}>
+          <div className={classes.avatarRow} >
             <Avatar className={classes.avatar}>
               <CallIcon />
             </Avatar>
@@ -139,19 +143,18 @@ const Contact: React.FC = () => {
               variant="outlined"
               required
               fullWidth
-              id="messaage"
+              id="message"
               label="Escriba aqui su mensaje..."
-              name="messaage"
+              name="message"
               autoComplete="Mensaje"
               onChange={e => setmessageValue(e.target.value)}
             />
             <Button
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
               onClick={() =>
-                handleSendMail(firstNameValue, lastNameValue, emailValue, messageValue)
+                handleSendMail(firstNameValue, lastNameValue, emailValue, messageValue, history)
               }
             >
               Enviar

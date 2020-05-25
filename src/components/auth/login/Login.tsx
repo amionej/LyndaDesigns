@@ -11,9 +11,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/react-hooks';
+import Swal from 'sweetalert2';
 import GET_CURRENT_USER from '../auth.queries';
 import GET_TOKEN from './login.mutations';
 import './login.css';
+
 
 function Copyright() {
   return (
@@ -84,7 +86,7 @@ const Login: React.FC = () => {
         history.push('/catalog');
       });
     } catch (e) {
-      console.log(e);
+      Swal.fire(`Error`, `Tu correo/contraseña no es valido/a`, 'error');
     }
   };
   return (

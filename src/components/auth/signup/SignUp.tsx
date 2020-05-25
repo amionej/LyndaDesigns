@@ -95,7 +95,7 @@ const SignUp: React.FC = () => {
                 },
               });
             } catch (e) {
-              // Ignore write errors
+              Swal.fire(`Error`, `Tu cuenta no pudo ser creada`, 'error');
             }
           },
         });

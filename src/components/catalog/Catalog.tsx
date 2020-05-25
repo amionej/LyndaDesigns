@@ -82,13 +82,15 @@ const Catalog: React.FC = () => {
                     <Card className="card">
                       <CardMedia
                         className="cardMedia"
-                        image={`https://lynda-api.herokuapp.com/media/${p.image?.image}`}
+                        image={`https://lyndaapi.s3.us-east-2.amazonaws.com/${p.image?.image}`}
                         title={p.productName}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: p.status && 'pointer' }}
                         onClick={() => {
-                          setQuantity(1);
-                          setSelectedProduct(p);
-                          setIsOpen(true);
+                          if(p.status){
+                            setQuantity(1);
+                            setSelectedProduct(p);
+                            setIsOpen(true);
+                          }
                         }}
                       />
                       <CardContent className="cardContent">
@@ -136,7 +138,7 @@ const Catalog: React.FC = () => {
               <Container maxWidth="md">
                 <CardMedia
                   className="cardMedia"
-                  image={`https://lynda-api.herokuapp.com/media/${selectedProduct.image?.image}`}
+                  image={`https://lyndaapi.s3.us-east-2.amazonaws.com/${selectedProduct.image?.image}`}
                   title={selectedProduct.description}
                 />
                 <CardContent

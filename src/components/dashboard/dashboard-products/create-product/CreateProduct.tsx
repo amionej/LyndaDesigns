@@ -64,7 +64,7 @@ const CreateProduct: React.FC = () => {
       }).then(() => {
         Swal.fire({
           title: 'Éxito',
-          text: 'El producto ha sido creada.',
+          text: 'El producto ha sido creado exitosamente.',
           icon: 'success',
           onClose: () => {
             history.push('/dashboard-products');

@@ -64,7 +64,7 @@ const DashboardProducts: React.FC = () => {
       <ThemeProvider theme={colorTheme}>
         <CssBaseline />
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          <Link style={{ alignSelf: 'center', marginTop: '4rem' }} to="/create-product">
+          <Link style={{ alignSelf: 'center', marginTop: '4rem', textDecoration:"none" }} to="/create-product">
             <Button
               size="large"
               style={{
@@ -88,7 +88,7 @@ const DashboardProducts: React.FC = () => {
                       {p.image?.image ? (
                         <CardMedia
                           className="cardMedia"
-                          image={`https://lynda-api.herokuapp.com/media/${p.image.image}`}
+                          image={`https://lyndaapi.s3.us-east-2.amazonaws.com/${p.image.image}`}
                           title={p.productName}
                         />
                       ) : (
@@ -132,7 +132,7 @@ const DashboardProducts: React.FC = () => {
                                     image: file,
                                   },
                                 }).then(() => {
-                                  console.log('SIMON');
+                                  Swal.fire(`¡Exito!`, 'Tu imagen ha sido asignada.', 'success')
                                 });
                               } catch ({ e }) {
                                 // Ignore write errors
