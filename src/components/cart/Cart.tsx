@@ -90,7 +90,7 @@ const Cart: React.FC = () => {
                     <li className="list-item" key={cartObject.product.id}>
                       <div className="list-item-start">
                         <img
-                          src={`http://127.0.0.1:8000/media/${cartObject.product.image.image}`}
+                          src={`https://lynda-api.herokuapp.com/media/${cartObject.product.image.image}`}
                           alt="imagen_de_producto"
                           className="product-image"
                         />

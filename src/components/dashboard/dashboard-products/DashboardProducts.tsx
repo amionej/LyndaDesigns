@@ -88,7 +88,7 @@ const DashboardProducts: React.FC = () => {
                       {p.image?.image ? (
                         <CardMedia
                           className="cardMedia"
-                          image={`http://127.0.0.1:8000/media/${p.image.image}`}
+                          image={`https://lynda-api.herokuapp.com/media/${p.image.image}`}
                           title={p.productName}
                         />
                       ) : (
