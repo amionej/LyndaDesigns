@@ -16,7 +16,6 @@ import GET_CURRENT_USER from '../auth.queries';
 import GET_TOKEN from './login.mutations';
 import './login.css';
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -138,7 +137,7 @@ const Login: React.FC = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              // type="submit"
+              disabled={!username || !password}
               onClick={() => handleSignIn()}
             >
               Iniciar Sesion

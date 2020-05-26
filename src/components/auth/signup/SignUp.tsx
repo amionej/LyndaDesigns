@@ -192,6 +192,7 @@ const SignUp: React.FC = () => {
               variant="contained"
               className={classes.submit}
               onClick={() => hangleSignUp()}
+              disabled={!firstName || !lastName || !email || !password || !username}
             >
               Registrar cuenta
             </Button>

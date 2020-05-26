@@ -143,6 +143,7 @@ const CreateProduct: React.FC = () => {
               variant="contained"
               className={classes.submit}
               onClick={() => handleCreateProduct()}
+              disabled={!productName || !description || !price}
             >
               Crear Producto
             </Button>
