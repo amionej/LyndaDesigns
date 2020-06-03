@@ -93,10 +93,8 @@ const HomePage: React.FC = () => {
                   </div>
                 )}
                 <div className="carousel-div-item">
-                  <span className="carousel-item-title">Lynda Designs</span>
-                  <span className="carousel-item-desc">
-                    Cumpleaños, aniversarios, graduaciones y más.
-                  </span>
+                  <span className="carousel-item-title">AMOLI</span>
+                  <span className="carousel-item-desc">Jabones naturales.</span>
                 </div>
                 {!authenticated && (
                   <div className="carousel-div-item">
@@ -109,7 +107,7 @@ const HomePage: React.FC = () => {
                 )}
                 <div className="carousel-div-item">
                   <span className="carousel-item-title">Nuestro catálogo</span>
-                  <span className="carousel-item-desc">Escoge tu preferido.</span>
+                  <span className="carousel-item-desc">Escoge el preferido de tu piel.</span>
                   <Link to="/catalog" className="carousel-link">
                     Catálogo
                   </Link>
@@ -142,10 +140,10 @@ const HomePage: React.FC = () => {
                   <div className={classes.item}>
                     <GestureIcon fontSize="large" />
                     <Typography variant="h4" className={classes.title} align="center">
-                      Personalizadas
+                      Calidad
                     </Typography>
                     <Typography variant="h6" align="center">
-                      Hechas para cada quien, sin importar lo que buscas.
+                      Hechas para toda piel.
                     </Typography>
                   </div>
                 </Grid>
@@ -153,10 +151,10 @@ const HomePage: React.FC = () => {
                   <div className={classes.item}>
                     <TrendingUpIcon fontSize="large" />
                     <Typography variant="h4" className={classes.title} align="center">
-                      De Alta Calidad
+                      Producto artesanal.
                     </Typography>
                     <Typography variant="h6" align="center">
-                      No te preocupes por la calidad, siempre serán excelentes.
+                      Apoya lo local.
                     </Typography>
                   </div>
                 </Grid>

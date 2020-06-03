@@ -62,7 +62,7 @@ const AppBar: React.FC = () => {
           </>
         )}
         <Typography variant="h6" color="textPrimary">
-          LyndaLogo
+          AMOLI
         </Typography>
         <section className="right-tool-bar">
           <div className="cart-link">
