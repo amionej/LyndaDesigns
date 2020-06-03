@@ -38,7 +38,7 @@ const Apollo: React.FC<Props> = ({ children }: Props) => {
   });
 
   const djangoLink = createUploadLink({
-    uri: 'https://lynda-api.herokuapp.com/graphql/',
+    uri: 'https://amoli-api.herokuapp.com/graphql/',
     credentials: 'include',
     // headers: {
     //   'X-CSRFToken': csrftoken,
