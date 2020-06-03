@@ -3,14 +3,14 @@
   position: relative !important;
   transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms !important;
   white-space: nowrap !important;
-  background-color: #ffd9d9 !important;
+  background-color: #cbeecd !important;
 }
 .drawer-paper-close {
   position: relative !important;
   white-space: nowrap !important;
   width: 72px !important;
   overflow-x: hidden !important;
-  background-color: #ffd9d9 !important;
+  background-color: #cbeecd !important;
   transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms !important;
 }
 .toolbar-icon {

@@ -169,7 +169,7 @@ const Cart: React.FC = () => {
               </CardContent>
             ) : (
               <div className="no-products">
-                <FontAwesomeIcon icon={faExclamationCircle} size="4x" color="#B76E79" />
+                <FontAwesomeIcon icon={faExclamationCircle} size="4x" color="#18571e" />
                 <h2 className="no-products-title">¡No tienes productos seleccionados!</h2>
                 <Link to="/catalog" className="no-products-link">
                   Ir a catálogo

@@ -8,7 +8,7 @@ const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
-      <span>Lynda Designs</span>
+      <span>AMOLI</span>
       {new Date().getFullYear()}.
     </Typography>
   );
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
   return (
     <footer>
       <Container maxWidth="sm">
-        <Typography variant="body1">Lynda Designs</Typography>
+        <Typography variant="body1">AMOLI</Typography>
         <Copyright />
       </Container>
     </footer>

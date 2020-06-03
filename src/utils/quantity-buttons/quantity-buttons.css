@@ -3,7 +3,7 @@
   width: 35px;
   border: 0px;
   border-radius: 50%;
-  background-color: #b76e79;
+  background-color: #18571e;
   color: white;
   font-size: 1.3rem;
   text-align: center;
@@ -13,10 +13,10 @@
 
 .quantity-button:hover {
   cursor: pointer;
-  background-color: #daa4ac;
+  background-color: #cbeecd;
 }
 .quantity-button:active {
-  background-color: #4d242a;
+  background-color: #062909;
 }
 
 .quantity-button:disabled {

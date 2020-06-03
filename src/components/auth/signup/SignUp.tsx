@@ -23,8 +23,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   image: {
-    backgroundImage:
-      'url(https://static.diariofemenino.com/media/7097/c/carta-de-amor-para-san-valentin-sm.jpg)',
+    backgroundImage: 'url(https://lyndaapi.s3.us-east-2.amazonaws.com/register.jpeg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
